@@ -24,7 +24,10 @@ import Categorydetail from "./Details/Categorydetail";
 import HeroSection from "./component/page/HeroSection";
 import Delete from "./Delete/Delete";
 import Studentsdetails from "./Details/Studentsdetails";
-
+import Vision from "./component/page/Vision";
+import Testimonials from "./component/page/Testimonials";
+import TestimonialsTable from "./component/page/TestimonialsTable";
+import Addtestimonials from "./Add/Addtestimonials";
 function App() {
   return (
     <>
@@ -51,6 +54,10 @@ function App() {
             {/* <Route path="/details" element={<Details />} /> */}
           <Route path="/edit" element={<Edit />} />
           <Route path="/delete" element={<Delete />} />
+          <Route path="/vision" element={<Vision/>}/>
+          <Route path="/testimonials" element={<Testimonials/>}/>
+          <Route path="/testimonialstable" element={<TestimonialsTable/>}/>
+          <Route path="/addtestimonials" element={<Addtestimonials/>}/>
 
           </Route>
 

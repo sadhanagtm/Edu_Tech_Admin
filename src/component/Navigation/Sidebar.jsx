@@ -113,10 +113,15 @@ function Sidebar() {
           </div>
         </Link>
 
+
+<Link to={"/testimonials"}>
+
         <div className="flex gap-3 ml-1  app:hover cursor-pointer w-48  h-10 rounded-lg pt-2 hover:bg-teal-800">
           <RiDashboardFill className="mt-1 ml-4" />
-          Country
+          Testimonials
         </div>
+
+</Link>
       </div>
     </div>
 

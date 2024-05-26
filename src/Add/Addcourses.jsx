@@ -11,7 +11,10 @@ function Addcourses() {
   
   const [value, setFieldValue] = useState("");
   const inputRef = useRef(null);
+  const videoRef = useRef(null);
   const [image, setImage] = useState("");
+  const [video, setVideo] = useState("");
+
   const [redirect, setredirect] = useState(false);
   const [placeholder, setplaceholder] = useState("enter description...");
 
@@ -27,6 +30,18 @@ function Addcourses() {
     console.log(file);
     setImage(e.target.files[0]);
   };
+
+  const handleVideoClick = () => {
+    videoRef.current.click();
+  };
+
+  const handleVideoChange = (e) => {
+    const file = e.target.files[0];
+    console.log(file);
+    setVideo(e.target.files[0]);
+  };
+
+
 
   useEffect(() => {
     let interval;
@@ -52,6 +67,8 @@ function Addcourses() {
           rating: "",
           tags: "",
           discount: "",
+          overview: "",
+
         }}
         onSubmit={(values, { resetForm }) => {
           try {
@@ -64,6 +81,8 @@ function Addcourses() {
             formData.append("rating", values.rating);
             formData.append("tags", values.tags);
             formData.append("discount", values.discount);
+            formData.append("overview", values.overview);
+
 
             axios
               .post("/course/", formData)
@@ -230,6 +249,42 @@ function Addcourses() {
                       />
                     </div>
                   </div>
+
+
+                  <div className="text-left mt-0  ">
+                    <div className="text-lg font-medium text-purple-700 mb-2">
+                      Video
+                    </div>
+                    <div onClick={handleVideoClick}>
+                      {values.overview ? (
+                        <video
+                          controls
+                          src={URL.createObjectURL(values.overview)}
+                          className="h-full w-11/12"
+                          alt=""
+                          name="overview"
+                        />
+                      ) : (
+                        <div className="h-48  w-48  border border-black border-dashed flex text-xl flex-col  justify-center text-center items-center text-gray-400 ">
+                          <div className="text-5xl">
+                            <IoCloudUploadSharp />
+                          </div>
+                          <div>Click to upload</div>
+                        </div>
+                      )}
+                      <input
+                        name="overview"
+                        type="file"
+                        ref={videoRef}
+                        onChange={(e) => {
+                          setFieldValue("overview", e.target.files[0]);
+                        }}
+                        style={{ display: "none" }}
+                      />
+                    </div>
+                  </div>
+
+
 
                   <div className="text-left mt-10 ">
                     <div className="text-lg font-medium text-purple-700 mb-2 ">

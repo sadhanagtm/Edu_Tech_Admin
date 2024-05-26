@@ -54,6 +54,7 @@ function Asd() {
             >
               Course Info
             </div>
+            
             <div
               onClick={() => {
                 setShow("Syllabus");

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Table from "../page component/Table";
 import axios from "../../Hoc/Axios";
+
 import { MdDelete } from "react-icons/md";
 import { MdModeEdit } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-function Courses() {
+function TestimonialsTable () {
   const columns = [
     {
       name: "Name",
@@ -15,7 +16,7 @@ function Courses() {
         console.log(row);
         return (
           <div className="">
-            <Link to={`/Courses/${row.id}`}>{row.name}</Link>
+            <Link to={`/testimonial/${row.id}`}>{row.name}</Link>
           </div>
         );
       },
@@ -23,28 +24,24 @@ function Courses() {
       selector: (row) => row.name,
     },
 
-    {
-      name: "Image",
-      sortable: true,
-      cell: (row) => {
-        let image = `${import.meta.env.VITE_API_URL}/public/${row.image}`;
-        return (
-          <div className="h-8 w-8">
-            <img src={image} />
-          </div>
-        );
-      },
+    // {
+    //   name: "Image",
+    //   sortable: true,
+    //   cell: (row) => {
+    //     let image = `${import.meta.env.VITE_API_URL}/public/${row.image}`;
+    //     return (
+    //       <div className="h-8 w-8">
+    //         <img src={image} />
+    //       </div>
+    //     );
+    //   },
 
-      selector: (row) => row.image,
-    },
+    //   selector: (row) => row.image,
+    // },
 
-    // { name: "price", selector: (row) => row.price },
-    { name: "Duration", sortable: true, selector: (row) => row.duration },
-    { name: "Description", sortable: true, selector: (row) => row.description },
-    // { name: "Rating", sortable: true, selector: (row) => row.rating },
-    // { name: "Discount", sortable: true, selector: (row) => row.discount },
-    // { name: "Tags", sortable: true, selector: (row) => row.tags },
-    // { name: "overview", sortable: true, selector: (row) => row.overview },
+    
+    { name: "Description", sortable: true, selector: (row) => row.desc },
+ 
 
     {
       name: "Action",
@@ -71,17 +68,17 @@ function Courses() {
     },
   ];
 
-  const [Course, setcourse] = useState([]);
+  const [testimonial, setTestimonial] = useState([]);
   const [filter, setFilter] = useState([]);
   const [query, setQuery] = useState("");
 
   const getdata = (id) => {
     try {
       axios
-        .get(`/course`)
+        .get(`/testimonial`)
         .then((res) => {
           console.log(res);
-          setcourse([...res.data.result]);
+          setTestimonial([...res.data.result]);
           setFilter([...res.data.result]);
         })
         .catch((error) => {
@@ -102,25 +99,25 @@ function Courses() {
 
   const handleDelete = (id) => {
     try {
-      axios.delete(`/course/${id}`);
+      axios.delete(`/testimonial/${id}`);
       getdata();
     } catch (error) {
       console.log(error);
     }
   };
 
-  console.log(Course);
+  console.log(testimonial);
 
   const handlesearch = (event) => {
     const getSearch = event.target.value;
     setQuery(getSearch);
     if (getSearch.length > 0) {
-      const searchdata = Course.filter((item) =>
+      const searchdata = testimonial.filter((item) =>
         item.name.toLowerCase().includes(getSearch)
       );
-      setcourse(searchdata);
+      setTestimonial(searchdata);
     } else {
-      setcourse(filter);
+        setTestimonial(filter);
     }
 
     setQuery(getSearch);
@@ -139,7 +136,7 @@ function Courses() {
         />
       </div>
 
-      <Link to={"/Addcourses"}>
+      <Link to={"/addtestimonials"}>
         <div className="  top-20 right-10 absolute">
           <button className="h-10 w-24 bg-red-700 text-white text-lg font-semibold  rounded-md ">
             Add New
@@ -147,7 +144,7 @@ function Courses() {
         </div>
       </Link>
 
-      {Course && <Table data={Course} columns={columns} />}
+      {testimonial && <Table data={testimonial} columns={columns} />}
 
       
       {/* <div className=" text-xl ">
@@ -159,4 +156,4 @@ function Courses() {
   );
 }
 
-export default Courses;
+export default TestimonialsTable;
