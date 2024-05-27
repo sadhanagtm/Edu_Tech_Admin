@@ -1,11 +1,27 @@
-import { Field, Formik, Form } from "formik";
+import { Field, Formik, Form, ErrorMessage } from "formik";
 import React, { useRef, useState, useEffect, useMemo } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { Description, Navigation } from "@mui/icons-material";
-import axios from "../Hoc/Axios";
+import axios from "../../../Hoc/Axios";
 import { IoCloudUploadSharp } from "react-icons/io5";
 import JoditEditor from "jodit-react";
 import { duration } from "@mui/material";
+import * as Yup from "yup"
+
+const schema = Yup.object().shape({
+  name: Yup.string().required("This field is required"),
+  price: Yup.string().required("This field is required"),
+  duration: Yup.string().required("This field is required"),
+  discount: Yup.string().required("This field is required"),
+  rating: Yup.string()
+  .max(5,"Rating should be up to 5 only")
+  .required("This field is required"),
+  tags: Yup.string().required("This field is required"),
+  description: Yup.string().required("This field is required"),
+  image: Yup.string().required("This field is required"),
+  overview: Yup.string().required("This field is required"),
+  
+});
 
 function Addcourses() {
   
@@ -70,6 +86,8 @@ function Addcourses() {
           overview: "",
 
         }}
+        validationSchema={schema}
+
         onSubmit={(values, { resetForm }) => {
           try {
             const formData = new FormData();
@@ -127,6 +145,11 @@ function Addcourses() {
                           setFieldValue("name", e.target.value);
                         }}
                       />
+                     <ErrorMessage
+                        name="name"
+                     component={"div"}
+                    className="text-red-600"
+                         />
                     </div>
                   </div>
 
@@ -144,6 +167,12 @@ function Addcourses() {
                           setFieldValue("price", e.target.value);
                         }}
                       />
+                      <ErrorMessage
+                        name="price"
+                     component={"div"}
+                    className="text-red-600"
+                         />
+
                     </div>
                   </div>
 
@@ -161,6 +190,12 @@ function Addcourses() {
                           setFieldValue("duration", e.target.value);
                         }}
                       />
+                      <ErrorMessage
+                        name="durtion"
+                     component={"div"}
+                    className="text-red-600"
+                         />
+
                     </div>
                   </div>
 
@@ -179,6 +214,11 @@ function Addcourses() {
                           setFieldValue("rating",e.target.value);
                         }}
                       />
+                       <ErrorMessage
+                        name="rating"
+                     component={"div"}
+                    className="text-red-600"
+                         />
                     </div>
                   </div>
 
@@ -196,6 +236,11 @@ function Addcourses() {
                           setFieldValue("discount", e.target.value);
                         }}
                       />
+                       <ErrorMessage
+                        name="discount"
+                     component={"div"}
+                    className="text-red-600"
+                         />
                     </div>
                   </div>
 
@@ -213,6 +258,11 @@ function Addcourses() {
                           setFieldValue("tags", e.target.value);
                         }}
                       />
+                       <ErrorMessage
+                        name="tags"
+                     component={"div"}
+                    className="text-red-600"
+                         />
                     </div>
                   </div>
                 </div>
@@ -247,6 +297,11 @@ function Addcourses() {
                         }}
                         style={{ display: "none" }}
                       />
+                       <ErrorMessage
+                        name="image"
+                     component={"div"}
+                    className="text-red-600"
+                         />
                     </div>
                   </div>
 
@@ -281,6 +336,12 @@ function Addcourses() {
                         }}
                         style={{ display: "none" }}
                       />
+                       <ErrorMessage
+                        name="overview"
+                     component={"div"}
+                    className="text-red-600"
+                         />
+
                     </div>
                   </div>
 
@@ -293,13 +354,20 @@ function Addcourses() {
                       <JoditEditor
                         ref={editor}
                         value={content}
+                      name="description"
+
                         // config={config}
                         tabIndex={1} // tabIndex of textarea
                         onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
                         onChange={(newContent) => {
-                            setFieldValue("description", e.target.value);
+                            setFieldValue("description", newContent );
                         }}
                       />
+                       <ErrorMessage
+                        name="description"
+                     component={"div"}
+                    className="text-red-600"
+                         />
                     </div>
                   </div>
 

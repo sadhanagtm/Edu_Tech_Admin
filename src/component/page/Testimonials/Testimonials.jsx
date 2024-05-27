@@ -3,7 +3,7 @@ import { BsFillEyeFill } from "react-icons/bs";
 import { Field, Formik, Form } from "formik";
 import toast, { Toaster } from "react-hot-toast";
 import { Description, Navigation } from "@mui/icons-material";
-import axiosinstance from "../../Hoc/Axios";
+import axiosinstance from "../../../Hoc/Axios";
 import { IoCloudUploadSharp } from "react-icons/io5";
 import JoditEditor from "jodit-react"; 
 import { Link } from "react-router-dom";

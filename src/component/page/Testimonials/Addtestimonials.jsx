@@ -2,7 +2,7 @@ import { Field, Formik, Form } from "formik";
 import React, { useRef, useState, useEffect, useMemo } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { Description, Navigation } from "@mui/icons-material";
-import axios from "../Hoc/Axios";
+import axios from "../../../Hoc/Axios";
 import { IoCloudUploadSharp } from "react-icons/io5";
 import JoditEditor from "jodit-react";
 import { duration } from "@mui/material";

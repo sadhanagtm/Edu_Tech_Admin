@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from "react";
-import Table from "../page component/Table";
-import axiosinstance from "../../Hoc/Axios";
+import Table from "../../page component/Table";
+import axiosinstance from "../../../Hoc/Axios";
 import { MdDelete } from "react-icons/md";
 import { MdModeEdit } from "react-icons/md";
 import { Link } from "react-router-dom";
+
+
+
+
+
+
 
 function Instructor() {
   const columns = [

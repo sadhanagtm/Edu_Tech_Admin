@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Table from "../page component/Table";
-import axios from "../../Hoc/Axios";
+import Table from "../../page component/Table";
+import axios from "../../../Hoc/Axios";
 
 import { MdDelete } from "react-icons/md";
 import { MdModeEdit } from "react-icons/md";

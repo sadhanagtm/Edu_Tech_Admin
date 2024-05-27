@@ -1,28 +1,26 @@
 import React, { useState, useEffect } from "react";
-import Table from "../page component/Table";
-import axiosinstance from "../../Hoc/Axios";
-
+import Table from "../../page component/Table";
+import axiosinstance from "../../../Hoc/Axios";
 import { MdDelete } from "react-icons/md";
 import { MdModeEdit } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-function Category() {
+
+function Student() {
   const columns = [
-    {
-      name: "Name",
-      sortable: true,
-
-      cell: (row) => {
-        console.log(row);
-        return (
-          <div>
-            <Link to={`/category/${row.id}`}>{row.name}</Link>
-          </div>
-        );
-      },
-
-      selector: (row) => row.name,
+    { name: "Name", sortable: true,
+    
+    cell:(row) =>{
+      console.log(row);
+      return(
+        <div>
+          <Link to={`/student/${row.id}`}>{row.name}</Link>
+        </div>
+      )
     },
+
+    selector: (row) => row.name,
+   },
 
     {
       name: "Image",
@@ -39,20 +37,23 @@ function Category() {
       selector: (row) => row.image,
     },
 
+    { name: "Email", selector: (row) => row.email },
+    { name: "Address", sortable: true, selector: (row) => row.address },
+    { name: "Phone", sortable: true, selector: (row) => row.phone },
+
     {
       name: "Action",
       cell: (row) => (
         <div className="gap-4 flex items-center justify-center text-xl ">
-         
-          <button className="  "  id={row.id}>
+          <button className="  " onClick={handleEdit} id={row.ID}>
             <MdModeEdit />
           </button>
 
-          <button 
-          className=" "
-           onClick={() => handleDelete(row.id)} 
-           id={row.id}
-           >
+          <button
+           className=" " 
+           onClick={() => handleDelete(row.id)}
+            id={row.id}
+            >
             <MdDelete />
           </button>
         </div>
@@ -61,18 +62,18 @@ function Category() {
     },
   ];
 
-  const [App, setapp] = useState([]);
+  const [students, setStudents] = useState([]);
   const [filter, setFilter] = useState([]);
   const [query, setQuery] = useState("");
 
   const getdata = (id) => {
     try {
       axiosinstance
-        .get(`/category`)
+        .get(`/student`)
         .then((res) => {
           console.log(res);
-          setapp([...res.data.newArr]);
-          setFilter([...res.data.newArr]);
+          setStudents([...res.data.result]);
+          setFilter([...res.data.result]);
         })
         .catch((error) => {
           console.log(error);
@@ -88,30 +89,30 @@ function Category() {
 
   const data = [];
 
-  const handleEdit = () => { };
-
-  const handleDelete = (id) => { 
-    try{
-      axiosinstance.delete(`/category/${id}`);
-      getdata();
-     } catch(error){
-        console.log(error);
-      
-    }
+  const handleEdit = () => {
+ 
+  };
+  const handleDelete = (id) => {
+  try{
+    axiosinstance.delete(`/student/${id}`);
+    getdata();
+  } catch (error){
+    console.log(error)
+  }
   };
 
-  console.log(App);
+  console.log(students);
 
   const handlesearch = (event) => {
     const getSearch = event.target.value;
     setQuery(getSearch);
     if (getSearch.length > 0) {
-      const searchdata = App.filter((item) =>
+      const searchdata = students.filter((item) =>
         item.name.toLowerCase().includes(getSearch)
       );
-      setapp(searchdata);
+      setStudents(searchdata);
     } else {
-      setapp(filter);
+      setStudents(filter);
     }
 
     setQuery(getSearch);
@@ -124,28 +125,28 @@ function Category() {
           type="text"
           name="name"
           value={query}
-          className=" border-2 border-black  rounded"
+          className=" border-2 border-black mt  rounded"
           onChange={(e) => handlesearch(e)}
           placeholder="search here"
         />
       </div>
 
-      <Link to={"/Addcategory"}>
+      {/* <Link to={"/addstudent"}>
         <div className="  top-20 right-10 absolute">
           <button className="h-10 w-24 bg-red-700 text-white text-lg font-semibold  rounded-md ">
             Add New
           </button>
         </div>
-      </Link>
+      </Link> */}
 
-      {App && <Table data={App} columns={columns} />}
-
-      {/* <div className=" text-xl ">
-        <button onClick={handleEdit}></button>
-        <button onClick={handleDelete}></button>
-      </div> */}
+      {students && <Table data={students} columns={columns} />}
     </div>
   );
 }
 
-export default Category;
+export default Student;
+
+// <div className=" text-xl ">
+//   <button onClick={handleEdit}>{/* <MdOutlineEditNote /> */}</button>
+//   <button onClick={handleDelete}>{/* <RiDeleteBin5Fill /> */}</button>
+// </div>

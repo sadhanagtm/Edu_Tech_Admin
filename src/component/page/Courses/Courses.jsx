@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import Table from "../page component/Table";
-import axios from "../../Hoc/Axios";
+import Table from "../../page component/Table";
+import axios from "../../../Hoc/Axios";
 import { MdDelete } from "react-icons/md";
 import { MdModeEdit } from "react-icons/md";
 import { Link } from "react-router-dom";
+
+
 
 function Courses() {
   const columns = [
@@ -127,7 +129,7 @@ function Courses() {
   };
 
   return (
-    <div className="ml-60">
+    <div className="ml-56">
       <div className=" mt-20">
         <input
           type="text"

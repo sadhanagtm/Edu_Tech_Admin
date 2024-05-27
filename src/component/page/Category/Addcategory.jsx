@@ -1,11 +1,22 @@
-import { Field, Formik, Form } from "formik";
+import { Field, Formik, Form,ErrorMessage } from "formik";
 import React, { useRef, useState, useEffect, useMemo } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { Navigation } from "@mui/icons-material";
-import axios from "../Hoc/Axios";
+import axios from "../../../Hoc/Axios";
 import { IoCloudUploadSharp } from "react-icons/io5";
 import JoditEditor from "jodit-react";
-function Addstudent() {
+import * as Yup from "yup"
+
+
+const schema= Yup.object().shape({
+  name: Yup.string().required("This field is required"),
+  image: Yup.string().required("This field is required"),
+
+})
+
+
+function Addcategory() {
+
   const [value, setFieldValue] = useState("");
   const inputRef = useRef(null);
   const [image, setImage] = useState("");
@@ -19,7 +30,7 @@ function Addstudent() {
     inputRef.current.click();
   };
 
-  const handleImageChange = () => {
+  const handleImageChange = (e) => {
     const file = e.target.files[0];
     console.log(file);
     setImage(e.target.files[0]);
@@ -38,26 +49,20 @@ function Addstudent() {
   }, [redirect]);
 
   return (
-    <div className="mt-20">
+    <div className="mt-20 ml-60">
       <Formik
         initialValues={{
           name: "",
-          email: "",
-          phone: "",
-          address: "",
           image: "",
         }}
+        validationSchema={schema}
         onSubmit={(values, { resetForm }) => {
           try {
             const formData = new FormData();
             formData.append("name", values.name);
-            formData.append("email", values.email);
-            formData.append("phone", values.phone);
             formData.append("image", values.image);
-            formData.append("address", values.address);
-
             axios
-              .post("/student/", formData)
+              .post("/category/", formData)
               .then((res) => {
                 console.log(res);
                 toast.success("Login Successful");
@@ -97,57 +102,11 @@ function Addstudent() {
                         setFieldValue("name", e.target.value);
                       }}
                     />
-                  </div>
-                </div>
-
-                <div className="text-left">
-                  <div className="text-lg font-medium text-purple-700 mb-2">
-                    Email
-                  </div>
-                  <div>
-                    <Field
-                      name="email"
-                      type="email"
-                      label="hehe"
-                      className="outline-none h-10 w-[400px] outline-gray-200"
-                      onChange={(e) => {
-                        setFieldValue("email", e.target.value);
-                      }}
-                    />
-                  </div>
-                </div>
-
-                <div className="text-left">
-                  <div className="text-lg font-medium text-purple-700 mb-2">
-                    Address
-                  </div>
-                  <div>
-                    <Field
-                      name="address"
-                      type="text"
-                      label="hehe"
-                      className="outline-none h-10 w-[400px] outline-gray-200"
-                      onChange={(e) => {
-                        setFieldValue("address", e.target.value);
-                      }}
-                    />
-                  </div>
-                </div>
-
-                <div className="text-left">
-                  <div className="text-lg font-medium text-purple-700 mb-2">
-                    Phone
-                  </div>
-                  <div>
-                    <Field
-                      name="phone"
-                      type="number"
-                      label="hehe"
-                      className="outline-none h-10 w-[400px] outline-gray-200"
-                      onChange={(e) => {
-                        setFieldValue("phone", e.target.value);
-                      }}
-                    />
+                        <ErrorMessage
+                        name="name"
+                     component={"div"}
+                    className="text-red-600"
+                         />
                   </div>
                 </div>
 
@@ -160,6 +119,7 @@ function Addstudent() {
                       {values.image ? (
                         <img
                           src={URL.createObjectURL(values.image)}
+                          className="h-48 w-48 justify-center"
                           alt=""
                           name="image"
                         />
@@ -180,25 +140,15 @@ function Addstudent() {
                         }}
                         style={{ display: "none" }}
                       />
+
+<ErrorMessage
+                        name="image"
+                     component={"div"}
+                    className="text-red-600"
+                         />
                     </div>
                   </div>
 
-                  {/* <div className="text-left mt-10 ">
-                    <div className="text-lg font-medium text-purple-700 mb-2 ">
-                      Description
-                   
-                      <JoditEditor
-                        ref={editor}
-                        value={content}
-                        // config={config}
-                        tabIndex={1} // tabIndex of textarea
-                        onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
-                        onChange={(newContent) => {
-                          setFieldValue("description", e.target.value);
-                        }}
-                      />
-                    </div>
-                  </div> */}
 
                   <div className="text-left flex gap-5 ">
                     <button
@@ -228,4 +178,4 @@ function Addstudent() {
   );
 }
 
-export default Addstudent;
+export default Addcategory;

@@ -81,7 +81,7 @@ function HeroSection() {
       >
         {({ handleSubmit, setFieldValue, values }) => {
           return (
-            <div className="ml-60">
+            <div className=" ml-48">
             <Form onSubmit={handleSubmit}>
               <Toaster />
               <div className="text-3xl font-bold ml-20 text-purple-700 mb-10 ">Hero Section</div>

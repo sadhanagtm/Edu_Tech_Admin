@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import axios from "../Hoc/Axios";
+import axios from "../../../Hoc/Axios";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import { duration } from "@mui/material";
 import { connect } from "formik";
 
-function Categorydetail() {
+function Asd() {
   const [Show, setShow] = useState("CourseInfo");
   const [course, setcourse] = useState([]);
 
@@ -17,7 +17,7 @@ function Categorydetail() {
   const getdata = (id) => {
     try {
       axios
-        .get(`/category/${id}`)
+        .get(`/course/${id}`)
         .then((res) => {
           console.log(res);
           setcourse([res.data.result]);
@@ -54,6 +54,7 @@ function Categorydetail() {
             >
               Course Info
             </div>
+            
             <div
               onClick={() => {
                 setShow("Syllabus");
@@ -94,7 +95,48 @@ function Categorydetail() {
                             </div>
                             <div className=" capitalize ">{val.name}</div>
                           </div>
-                      
+
+                          <div className="ml-16">
+                            <div className=" text-lg text-purple-700 font-semibold ">
+                               Duration
+                            </div>
+                            <div className=" capitalize "> {val.duration}</div>
+                          </div>
+
+                          <div className="">
+                            <div className=" text-lg text-purple-700 font-semibold ">
+                              Price
+                            </div>
+                            <div className=" uppercase "> {val.price}</div>
+                          </div>
+
+                          <div className="ml-16">
+                            <div className=" text-lg text-purple-700 font-semibold">
+                              Rating
+                            </div>
+                            <div className=" uppercase"> {val?.rating}</div>
+                          </div>
+
+                          <div className=" ">
+                            <div className=" text-lg text-purple-700 font-semibold ">
+                              Discount
+                            </div>
+                            <div className=" uppercase"> {val.discount}</div>
+                          </div>
+
+                          <div className=" ml-16 ">
+                            <div className=" text-lg text-purple-700 font-semibold ">
+                              Tags
+                            </div>
+                            <div className=" uppercase "> {val.tags}</div>
+                          </div>
+
+                          <div className="">
+                            <div className=" text-lg text-purple-700 font-semibold ">
+                              Overview
+                            </div>
+                            <div className=" uppercase "> {val.overview}</div>
+                          </div>
 
                         </div>
                       </div>
@@ -183,4 +225,4 @@ function Categorydetail() {
   );
 }
 
-export default Categorydetail;
+export default Asd;

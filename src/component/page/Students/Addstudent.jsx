@@ -2,11 +2,11 @@ import { Field, Formik, Form } from "formik";
 import React, { useRef, useState, useEffect, useMemo } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { Navigation } from "@mui/icons-material";
-import axios from "../Hoc/Axios";
+import axios from "../../../Hoc/Axios";
 import { IoCloudUploadSharp } from "react-icons/io5";
 import JoditEditor from "jodit-react";
 
-function Addinstructor() {
+function Addstudent() {
   const [value, setFieldValue] = useState("");
   const inputRef = useRef(null);
   const [image, setImage] = useState("");
@@ -42,10 +42,7 @@ function Addinstructor() {
     <div className="mt-20">
       <Formik
         initialValues={{
-          firstName: "",
-          lastName: "",
-          middleName: "",
-          password: "",
+          name: "",
           email: "",
           phone: "",
           address: "",
@@ -54,20 +51,16 @@ function Addinstructor() {
         onSubmit={(values, { resetForm }) => {
           try {
             const formData = new FormData();
-            formData.append("firstName", values.firstName);
-            formData.append("lastName", values.lastName);
-            formData.append("middleName", values.middleName);
-            formData.append("password", values.password);
-
+            formData.append("name", values.name);
             formData.append("email", values.email);
             formData.append("phone", values.phone);
             formData.append("image", values.image);
             formData.append("address", values.address);
 
             axios
-              .post("/instructor/", formData)
+              .post("/student/", formData)
               .then((res) => {
-                console.log(res, "insdATA");
+                console.log(res);
                 toast.success("Login Successful");
                 setredirect((prev) => !prev);
                 localStorage.setItem("token", res.data.accesstoken);
@@ -90,73 +83,19 @@ function Addinstructor() {
           return (
             <Form onSubmit={handleSubmit}>
               <Toaster />
-              <div className="ml-60 ">
-                <div className=" grid grid-cols-3  gap-10 ">
-
-
+              <div className="grid grid-cols-2  gap-10 ">
                 <div className="text-left">
                   <div className="text-lg font-medium text-purple-700 mb-2">
-                    First Name
+                    Name
                   </div>
                   <div>
                     <Field
-                      name="firstName"
+                      name="name"
                       type="text"
                       label="hehe"
-                      className="outline-none h-10 w-[250px] outline-gray-200"
+                      className="outline-none h-10 w-[400px] outline-gray-200"
                       onChange={(e) => {
-                        setFieldValue("firstName", e.target.value);
-                      }}
-                    />
-                  </div>
-                </div>
-
-                <div className="text-left">
-                  <div className="text-lg font-medium text-purple-700 mb-2">
-                    Last Name
-                  </div>
-                  <div>
-                    <Field
-                      name="lastName"
-                      type="text"
-                      label="hehe"
-                      className="outline-none h-10 w-[250px] outline-gray-200"
-                      onChange={(e) => {
-                        setFieldValue("lastName", e.target.value);
-                      }}
-                    />
-                  </div>
-                </div>
-
-                <div className="text-left">
-                  <div className="text-lg font-medium text-purple-700 mb-2">
-                    Middle Name
-                  </div>
-                  <div>
-                    <Field
-                      name="middleName"
-                      type="text"
-                      label="hehe"
-                      className="outline-none h-10 w-[250px] outline-gray-200"
-                      onChange={(e) => {
-                        setFieldValue("middleName", e.target.value);
-                      }}
-                    />
-                  </div>
-                </div>
-
-                <div className="text-left">
-                  <div className="text-lg font-medium text-purple-700 mb-2">
-                    Password
-                  </div>
-                  <div>
-                    <Field
-                      name="password"
-                      type="password"
-                      label="hehe"
-                      className="outline-none h-10 w-[250px] outline-gray-200"
-                      onChange={(e) => {
-                        setFieldValue("password", e.target.value);
+                        setFieldValue("name", e.target.value);
                       }}
                     />
                   </div>
@@ -171,7 +110,7 @@ function Addinstructor() {
                       name="email"
                       type="email"
                       label="hehe"
-                      className="outline-none h-10 w-[250px] outline-gray-200"
+                      className="outline-none h-10 w-[400px] outline-gray-200"
                       onChange={(e) => {
                         setFieldValue("email", e.target.value);
                       }}
@@ -188,7 +127,7 @@ function Addinstructor() {
                       name="address"
                       type="text"
                       label="hehe"
-                      className="outline-none h-10 w-[250px] outline-gray-200"
+                      className="outline-none h-10 w-[400px] outline-gray-200"
                       onChange={(e) => {
                         setFieldValue("address", e.target.value);
                       }}
@@ -198,21 +137,19 @@ function Addinstructor() {
 
                 <div className="text-left">
                   <div className="text-lg font-medium text-purple-700 mb-2">
-                    Phone Number
+                    Phone
                   </div>
                   <div>
                     <Field
                       name="phone"
                       type="number"
                       label="hehe"
-                      className="outline-none h-10 w-[250px] outline-gray-200"
+                      className="outline-none h-10 w-[400px] outline-gray-200"
                       onChange={(e) => {
                         setFieldValue("phone", e.target.value);
                       }}
                     />
                   </div>
-                </div>
-
                 </div>
 
                 <div className=" col-span-2 mt-10 grid grid-cols-1 justify-between">
@@ -224,7 +161,6 @@ function Addinstructor() {
                       {values.image ? (
                         <img
                           src={URL.createObjectURL(values.image)}
-                          className="h-48 w-48"
                           alt=""
                           name="image"
                         />
@@ -293,4 +229,4 @@ function Addinstructor() {
   );
 }
 
-export default Addinstructor;
+export default Addstudent;

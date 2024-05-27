@@ -35,15 +35,15 @@ function Sidebar() {
 
     <div className="h-full w-60 bg-primary fixed z-20 ">
       
-      <div className=" flex justify-center ">
+      <div className=" flex justify-center">
         <img
           src={"/src/image/Lopho.png"}
           alt="image"
-          className=" flex w-40   "
+          className=" flex w-40"
         />
       </div>
 
-      <div className="flex justify-evenly mt-7 bg-teal-800 h-12 w-44 rounded-lg ml-2 ">
+      <div className="flex justify-evenly mt-7 bg-teal-800 h-12 w-44 rounded-lg ml-7">
         <img
           src="https://www.shareicon.net/data/128x128/2017/01/06/868320_people_512x512.png"
           className="h-8 w-8 mt-2 "
@@ -52,7 +52,7 @@ function Sidebar() {
           <div className="text-white font-semibold text-center    ">
             <p> {name}</p>
           </div>
-          <div className="text-white text-sm  w-12 ml-4   ">Admin</div>
+          <div className="text-white text-sm  w-12    ">Admin</div>
         </div>
 
         {/* <button className='text-white text-3xl ' onClick={handleEdit}><MdOutlineEditNote /></button>
@@ -61,7 +61,7 @@ function Sidebar() {
 
      
  
-      <div className=" text-white font-semibold grid gap-5 mt-10 text-lg   " >
+      <div className=" text-white font-semibold grid gap-5 mt-10 ml-4  " >
         <Link to={"/Dashboard"}>
           <div className="flex gap-3 ml-1  app:hover cursor-pointer w-48  h-10 rounded-lg pt-2 hover:bg-teal-800">
             <RiDashboardFill className="mt-1 ml-4" />
