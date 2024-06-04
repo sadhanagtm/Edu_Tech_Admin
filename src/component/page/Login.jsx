@@ -84,6 +84,7 @@ return (
          Read more
        </button></div>
      </div>
+     <div>helllo anjaki</div>
  
        <div className=' h-97 lg:bg-gray-300 bg-gray-300 text-black flex flex-col sm:bg-zinc-100 '>
            <div className='lg:bg-gray-50 bg-gray-50 rounded-2xl lg:h-full sm:h-96 lg:w-96 w-full  my-8 mx-auto sm:mt-56 lg:mt-10 sm:bg-zinc-100'>
