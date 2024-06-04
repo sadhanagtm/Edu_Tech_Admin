@@ -106,8 +106,8 @@ function Edit() {
 
                 {console.log(values, course)}
 
-                <div className="ml-60 ">
-                  <div className="grid grid-cols-3 gap-9 ">
+                <div className="lg:ml-60 ">
+                  <div className="grid lg:grid-cols-3 sm:grid-cols-2 lg:gap-9 gap-4 sm:gap-8 ">
                     <div className="text-left">
                       <div className="text-lg font-medium text-purple-700 mb-2">
                         Name
@@ -117,7 +117,7 @@ function Edit() {
                           name="name"
                           type="text"
                           label="hehe"
-                          className="outline-none h-10 w-[250px] outline-gray-200"
+                          className="outline-none h-10  w-full outline-gray-200"
                           onChange={(e) => {
                             setFieldValue("name", e.target.value);
                           }}
@@ -134,7 +134,7 @@ function Edit() {
                           name="price"
                           type="number"
                           label="hehe"
-                          className="outline-none h-10 w-[250px] outline-gray-200"
+                          className="outline-none h-10  w-full outline-gray-200"
                           onChange={(e) => {
                             setFieldValue("price", e.target.value);
                           }}
@@ -151,7 +151,7 @@ function Edit() {
                           name="duration"
                           type="text"
                           label="hehe"
-                          className="outline-none h-10 w-[250px] outline-gray-200"
+                          className="outline-none h-10  w-full outline-gray-200"
                           onChange={(e) => {
                             setFieldValue("duration", e.target.value);
                           }}
@@ -168,7 +168,7 @@ function Edit() {
                           name="rating"
                           type="number"
                           label="hehe"
-                          className="outline-none h-10 w-[250px] outline-gray-200"
+                          className="outline-none h-10  w-full outline-gray-200"
                           onChange={(e) => {
                             setFieldValue("rating", e.target.value);
                           }}
@@ -185,7 +185,7 @@ function Edit() {
                           name="discount"
                           type="percentage"
                           label="hehe"
-                          className="outline-none h-10 w-[250px] outline-gray-200"
+                          className="outline-none h-10  w-full outline-gray-200"
                           onChange={(e) => {
                             setFieldValue("discount", e.target.value);
                           }}
@@ -202,7 +202,7 @@ function Edit() {
                           name="tags"
                           type="text"
                           label="hehe"
-                          className="outline-none h-10 w-[250px] outline-gray-200"
+                          className="outline-none h-10  w-full outline-gray-200"
                           onChange={(e) => {
                             setFieldValue("tags", e.target.value);
                           }}
@@ -220,12 +220,12 @@ function Edit() {
                         {values.image ? (
                           <img
                             src={URL.createObjectURL(values.image)}
-                            className="h-48  w-48"
+                            className="h-48  lg:w-48 sm:w-48"
                             alt=""
                             name="image"
                           />
                         ) : (
-                          <div className="h-48  w-48  border border-black border-dashed flex text-xl flex-col  justify-center text-center items-center text-gray-400 ">
+                          <div className="h-48  lg:w-48 sm:w-48 border border-black border-dashed flex text-xl flex-col  justify-center text-center items-center text-gray-400 ">
                             <div className="text-5xl">
                               <IoCloudUploadSharp />
                             </div>

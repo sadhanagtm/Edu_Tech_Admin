@@ -1,27 +1,22 @@
-import { Field, Formik, Form,ErrorMessage } from "formik";
+import { Field, Formik, Form, ErrorMessage } from "formik";
 import React, { useRef, useState, useEffect, useMemo } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { Navigation } from "@mui/icons-material";
 import axios from "../../../Hoc/Axios";
 import { IoCloudUploadSharp } from "react-icons/io5";
 import JoditEditor from "jodit-react";
-import * as Yup from "yup"
+import * as Yup from "yup";
 
-
-const schema= Yup.object().shape({
+const schema = Yup.object().shape({
   name: Yup.string().required("This field is required"),
   image: Yup.string().required("This field is required"),
-
-})
-
+});
 
 function Addcategory() {
-
   const [value, setFieldValue] = useState("");
   const inputRef = useRef(null);
   const [image, setImage] = useState("");
   const [redirect, setredirect] = useState(false);
-  const [placeholder, setplaceholder] = useState("enter description...");
 
   const editor = useRef(null);
   const [content, setContent] = useState("");
@@ -87,7 +82,9 @@ function Addcategory() {
           return (
             <Form onSubmit={handleSubmit}>
               <Toaster />
-              <div className="grid grid-cols-2  gap-10 ">
+              
+              <div className="grid lg:grid-cols-2 lg:gap-10  left-0 absolute lg:ml-72 ml-10 w-full">
+                
                 <div className="text-left">
                   <div className="text-lg font-medium text-purple-700 mb-2">
                     Name
@@ -95,22 +92,23 @@ function Addcategory() {
                   <div>
                     <Field
                       name="name"
+                      autoComplete="off"
                       type="text"
                       label="hehe"
-                      className="outline-none h-10 w-[400px] outline-gray-200"
+                      className="outline-none h-10 w-full outline-gray-200"
                       onChange={(e) => {
                         setFieldValue("name", e.target.value);
                       }}
                     />
-                        <ErrorMessage
-                        name="name"
-                     component={"div"}
-                    className="text-red-600"
-                         />
+                    <ErrorMessage
+                      name="name"
+                      component={"div"}
+                      className="text-red-600"
+                    />
                   </div>
                 </div>
 
-                <div className=" col-span-2 mt-10 grid grid-cols-1 justify-between">
+                <div className=" col-span-2 mt-4 grid grid-cols-1 justify-between">
                   <div className="text-left mt-0">
                     <div className="text-lg font-medium text-purple-700 mb-2">
                       Upload Image
@@ -119,7 +117,7 @@ function Addcategory() {
                       {values.image ? (
                         <img
                           src={URL.createObjectURL(values.image)}
-                          className="h-48 w-48 justify-center"
+                          className="h-48 w-48  justify-center"
                           alt=""
                           name="image"
                         />
@@ -141,16 +139,15 @@ function Addcategory() {
                         style={{ display: "none" }}
                       />
 
-<ErrorMessage
+                      <ErrorMessage
                         name="image"
-                     component={"div"}
-                    className="text-red-600"
-                         />
+                        component={"div"}
+                        className="text-red-600"
+                      />
                     </div>
                   </div>
 
-
-                  <div className="text-left flex gap-5 ">
+                  <div className="text-left flex gap-5 mt-3 ">
                     <button
                       onClick={() => {
                         Navigation(-1);

@@ -129,8 +129,8 @@ function Courses() {
   };
 
   return (
-    <div className="ml-56">
-      <div className=" mt-20">
+    <div className="lg:ml-56">
+      <div className=" mt-20 ">
         <input
           type="text"
           name="name"
@@ -142,8 +142,8 @@ function Courses() {
       </div>
 
       <Link to={"/Addcourses"}>
-        <div className="  top-20 right-10 absolute">
-          <button className="h-10 w-24 bg-red-700 text-white text-lg font-semibold  rounded-md ">
+        <div className="  top-20 lg:right-10  right-4 absolute">
+          <button className="lg:h-10 w-24 h-7 bg-red-700 text-white lg:text-lg font-semibold  rounded-md  ">
             Add New
           </button>
         </div>

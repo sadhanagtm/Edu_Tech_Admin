@@ -7,24 +7,32 @@ import { IoCloudUploadSharp } from "react-icons/io5";
 import JoditEditor from "jodit-react";
 import { duration } from "@mui/material";
 
-function Addtestimonials() {
+function Addteammember() {
+  const data = [
+    { name: "name", type: "text", label: "Name" },
+    { name: "position", type: "text", label: "Position" },
+    { name: "facebook", type: "text", label: "Facebook" },
+    { name: "twitter", type: "text", label: "Twitter" },
+    { name: "linkedin", type: "text", label: "Linkedin" },
+  ];
+
   const [value, setFieldValue] = useState("");
   const inputRef = useRef(null);
-  const [video, setVideo] = useState("");
+  const [image, setImage] = useState("");
 
   const [redirect, setredirect] = useState(false);
   const [placeholder, setplaceholder] = useState("enter description...");
   const editor = useRef(null);
   const [content, setContent] = useState("");
 
-  const handleVideoClick = () => {
+  const handleImageClick = () => {
     inputRef.current.click();
   };
 
-  const handleVideoChange = (e) => {
+  const handleImageChange = (e) => {
     const file = e.target.files[0];
     console.log(file);
-    setVideo(e.target.files[0]);
+    setImage(e.target.files[0]);
   };
 
   useEffect(() => {
@@ -44,30 +52,37 @@ function Addtestimonials() {
       <Formik
         initialValues={{
           name: "",
-          description: "",
-          video: "",
+          position: "",
+          facebook: "",
+          twitter: "",
+          Linkedin: "",
+          testimonial: "",
+          image: "",
         }}
         onSubmit={(values, { resetForm }) => {
           try {
             const formData = new FormData();
             formData.append("name", values.name);
+            formData.append("position", values.position);
+            formData.append("facebook", values.facebook);
+            formData.append("twitter", values.twitter);
+            formData.append("Linkedin", values.Linkedin);
+            formData.append("testimonial", values.testimonial);
+            formData.append("image", values.image);
 
-            formData.append("description", values.description);
-            formData.append("video", values.video);
-
-            axios
-              .post("/testimonial/", formData)
-              .then((res) => {
-                console.log(res);
-                toast.success("Login Successful");
-                setredirect((prev) => !prev);
-                localStorage.setItem("token", res.data.accesstoken);
-                Navigate("/");
-              })
-              .catch((error) => {
-                console.log(error);
-                toast.error(error.response.data.message);
-              });
+            // axios
+            //   .post("/testimonial/", formData)
+            //   .then((res) => {
+            //     console.log(res);
+            //     toast.success("Login Successful");
+            //     setredirect((prev) => !prev);
+            //     localStorage.setItem("token", res.data.accesstoken);
+            //     Navigate("/");
+            //   })
+            //   .catch((error) => {
+            //     console.log(error);
+            //     toast.error(error.response.data.message);
+            //   });
           } catch (error) {
             console.log(error);
           }
@@ -81,28 +96,33 @@ function Addtestimonials() {
             <Form onSubmit={handleSubmit}>
               <Toaster />
 
-              <div className="lg:ml-60  ">
-                  <div>
-                    <div className="text-lg font-medium text-purple-700 mb-2">
-                      Name
-                    </div>
-                    <div>
-                      <Field
-                        name="name"
-                        autoComplete="off"
-                        type="text"
-                        className="outline-none h-10 w-full outline-gray-200"
-                        onChange={(e) => {
-                          setFieldValue("name", e.target.value);
-                        }}
-                      />
-                    </div>
-                  </div>
-        
+              <div className="lg:ml-60 ">
+                <div className="grid lg:grid-cols-3 lg:gap-9 gap-4">
+                  {data.map((val, i) => {
+                    return (
+                      <div className="text-left ">
+                        <div className="text-lg font-medium text-purple-700 mb-2 ">
+                          {val.label}
+                        </div>
+                        <div>
+                          <Field
+                            name={val.name}
+                            autoComplete="off"
+                            type={val.type}
+                            className="outline-none h-10 lg:w-[280px] w-full outline-gray-200"
+                            onChange={(e) => {
+                              setFieldValue(val.name, e.target.value);
+                            }}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
 
-                <div className="text-left mt-10 ">
+                <div className="text-left lg:mt-10 mt-7 ">
                   <div className="text-lg font-medium text-purple-700 mb-2 ">
-                    Description
+                    Testimonial
                     <JoditEditor
                       ref={editor}
                       value={content}
@@ -116,21 +136,19 @@ function Addtestimonials() {
                   </div>
                 </div>
 
-            
-           
-
-                  <div className="text-left mt-9 mb-9  ">
+                <div className=" col-span-2 mt-10 grid grid-cols-1 justify-between">
+                  <div className="text-left mt-0  ">
                     <div className="text-lg font-medium text-purple-700 mb-2">
-                      Video
+                      Image
                     </div>
-                    <div onClick={handleVideoClick}>
-                      {values.video ? (
-                        <video
+                    <div onClick={handleImageClick}>
+                      {values.image ? (
+                        <img
                           controls
-                          src={URL.createObjectURL(values.video)}
-                          className="h-full lg:w-11/12"
-                          alt="" 
-                          name="video"
+                          src={URL.createObjectURL(values.image)}
+                          className="h-48  lg:w-48 w-full"
+                          alt=""
+                          name="image"
                         />
                       ) : (
                         <div className="h-48  lg:w-48  border border-black border-dashed flex text-xl flex-col  justify-center text-center items-center text-gray-400 ">
@@ -141,11 +159,11 @@ function Addtestimonials() {
                         </div>
                       )}
                       <input
-                        name="video"
+                        name="image"
                         type="file"
                         ref={inputRef}
                         onChange={(e) => {
-                          setFieldValue("video", e.target.files[0]);
+                          setFieldValue("image", e.target.files[0]);
                         }}
                         style={{ display: "none" }}
                       />
@@ -170,7 +188,7 @@ function Addtestimonials() {
                       Post
                     </button>
                   </div>
-              
+                </div>
               </div>
             </Form>
           );
@@ -180,4 +198,4 @@ function Addtestimonials() {
   );
 }
 
-export default Addtestimonials;
+export default Addteammember;

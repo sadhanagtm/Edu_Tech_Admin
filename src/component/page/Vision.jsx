@@ -3,17 +3,29 @@ import React, { useRef, useState, useEffect, useMemo } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { Description, Navigation } from "@mui/icons-material";
 import axiosinstance from "../../Hoc/Axios";
+import { IoCloudUploadSharp } from "react-icons/io5";
 import JoditEditor from "jodit-react";
 import { duration } from "@mui/material";
 
 function Vision() {
   const [value, setFieldValue] = useState("");
   const inputRef = useRef(null);
+  const [image, setImage] = useState("");
   const [redirect, setredirect] = useState(false);
   const [placeholder, setplaceholder] = useState("enter description...");
 
   const editor = useRef(null);
   const [content, setContent] = useState("");
+
+  const handleImageClick = () => {
+    inputRef.current.click();
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    console.log(file);
+    setImage(e.target.files[0]);
+  };
 
   useEffect(() => {
     let interval;
@@ -33,12 +45,14 @@ function Vision() {
         initialValues={{
           title: "",
           description: "",
+          image: "",
         }}
         onSubmit={(values, { resetForm }) => {
           try {
             const formData = new FormData();
             formData.append("title", values.title);
             formData.append("description", values.description);
+            formData.append("image", values.image);
 
             // axiosinstance
             //   .post("/banner", formData)
@@ -54,8 +68,7 @@ function Vision() {
             //     console.log(error);
             //     toast.error(error.response.data.message);
             //   });
-         
-            } catch (error) {
+          } catch (error) {
             console.log(error);
           }
 
@@ -65,14 +78,20 @@ function Vision() {
       >
         {({ handleSubmit, setFieldValue, values }) => {
           return (
-            <div className="ml-60">
+            <div className=" lg:ml-48">
               <Form onSubmit={handleSubmit}>
                 <Toaster />
-                <div className="text-3xl font-bold ml-20 text-purple-700 mb-10 ">
-                Our Vision
+{/*                
+                <div className=" h-16 w-10/12 bg-gray-50 shadow-xl flex rounded-lg  items-center justify-between ml-16 ">
+        <div className="  text-xl font-semibold ml-4 ">Our Vision</div>
+      </div> */}
+
+
+                <div className="text-3xl font-bold lg:ml-20 text-purple-700 lg:mb-10 ">
+                  Our Vision
                 </div>
 
-                <div className=" flex flex-col gap-10 w-10/12 m-auto">
+                <div className=" flex flex-col gap-10 w-full m-auto">
                   <div className="text-left">
                     <div className="text-lg font-medium text-purple-700 mb-2">
                       Title
@@ -81,8 +100,8 @@ function Vision() {
                       <Field
                         name="title"
                         type="text"
-                        label="hehe"
-                        className="outline-none h-10 w-10/12 outline-gray-200"
+                      
+                        className="outline-none h-10 w-full outline-gray-200"
                         // onChange={(e) => {
                         //   setFieldValue("title", e.target.value);
                         // }}
@@ -90,8 +109,8 @@ function Vision() {
                     </div>
                   </div>
 
-                  <div className="text-left mt-10 ">
-                    <div className="text-lg font-medium text-purple-700 mb-2 w-10/12 ">
+                  <div className="text-left lg:mt-10 ">
+                    <div className="text-lg font-medium text-purple-700 mb-2 w-full ">
                       Description
                       <JoditEditor
                         ref={editor}
@@ -107,6 +126,49 @@ function Vision() {
                     </div>
                   </div>
 
+                  <div className="lg:flex gap-44">
+                    <div className="text-left mt-0  ">
+                      <div className="text-lg font-medium text-purple-700 mb-2">
+                        Icon
+                      </div>
+                      <div onClick={handleImageClick}>
+                        {values.image ? (
+                          <img
+                            src={URL.createObjectURL(values.image)}
+                            className="h-48 sm:w-48 lg:w-48 lg:h-48 w-full"
+                            alt=""
+                            name="image"
+                          />
+                        ) : (
+                          <div className="h-48 sm:w-48 lg:h-48 lg:w-48  border border-black border-dashed flex text-xl flex-col  justify-center text-center items-center text-gray-400 ">
+                            <div className="text-5xl">
+                              <IoCloudUploadSharp />
+                            </div>
+                            <div>Click to upload</div>
+                          </div>
+                        )}
+                        <input
+                          name="image"
+                          type="file"
+                          ref={inputRef}
+                          onChange={(e) => {
+                            setFieldValue("image", e.target.files[0]);
+                          }}
+                          style={{ display: "none" }}
+                        />
+                      </div>
+                    </div>
+
+                    <div className=" mt-9 ">
+                      <select className=" border outline-none h-10 lg:w-96 w-full text-center text-xl text-purple-700 font-medium ml ">
+                        <option> Vision</option>
+                        <option> Mission</option>
+                        <option>Objective</option>
+                       
+                      </select>
+                    </div>
+                  </div>
+
                   <div className="text-left flex gap-5 ">
                     <button
                       onClick={() => {
@@ -115,7 +177,7 @@ function Vision() {
                       type="submit"
                       className="bg-red-600 h-10 my-5 w-24 text-lg rounded-lg text-center text-white hover:bg-indigo-500"
                     >
-                      cancel
+                      Cancle
                     </button>
 
                     <button

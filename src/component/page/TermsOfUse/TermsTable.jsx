@@ -6,43 +6,11 @@ import { MdDelete } from "react-icons/md";
 import { MdModeEdit } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-function TestimonialsTable () {
+function TermsTable () {
   const columns = [
-    {
-      name: "Name",
-      sortable: true,
-
-      cell: (row) => {
-        console.log(row);
-        return (
-          <div className="">
-            <Link to={`/testimonial/${row.id}`}>{row.name}</Link>
-          </div>
-        );
-      },
-
-      selector: (row) => row.name,
-    },
-
-    // {
-    //   name: "Image",
-    //   sortable: true,
-    //   cell: (row) => {
-    //     let image = `${import.meta.env.VITE_API_URL}/public/${row.image}`;
-    //     return (
-    //       <div className="h-8 w-8">
-    //         <img src={image} />
-    //       </div>
-    //     );
-    //   },
-
-    //   selector: (row) => row.image,
-    // },
-
-    
-    { name: "Description", sortable: true, selector: (row) => row.desc },
+    { name: "name", sortable: true, selector: (row) => row.name },
+    { name: "Description", sortable: true, selector: (row) => row.description },
  
-
     {
       name: "Action",
       cell: (row) => (
@@ -68,22 +36,22 @@ function TestimonialsTable () {
     },
   ];
 
-  const [testimonial, setTestimonial] = useState([]);
+  const [terms, setTerms] = useState([]);
   const [filter, setFilter] = useState([]);
   const [query, setQuery] = useState("");
 
   const getdata = (id) => {
     try {
-      axios
-        .get(`/testimonial`)
-        .then((res) => {
-          console.log(res);
-          setTestimonial([...res.data.result]);
-          setFilter([...res.data.result]);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      // axios
+      //   .get(`/testimonial`)
+      //   .then((res) => {
+      //     console.log(res);
+      //     setTerms([...res.data.result]);
+      //     setFilter([...res.data.result]);
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //   });
     } catch (error) {
       console.log(error);
     }
@@ -106,18 +74,18 @@ function TestimonialsTable () {
     }
   };
 
-  console.log(testimonial);
+  console.log(terms);
 
   const handlesearch = (event) => {
     const getSearch = event.target.value;
     setQuery(getSearch);
     if (getSearch.length > 0) {
-      const searchdata = testimonial.filter((item) =>
+      const searchdata = terms.filter((item) =>
         item.name.toLowerCase().includes(getSearch)
       );
-      setTestimonial(searchdata);
+      setTerms(searchdata);
     } else {
-        setTestimonial(filter);
+      setTerms(filter);
     }
 
     setQuery(getSearch);
@@ -136,24 +104,20 @@ function TestimonialsTable () {
         />
       </div>
 
-      <Link to={"/addtestimonials"}>
+      <Link to={"/addterms"}>
         <div className="  top-20 lg:right-10 right-4 absolute">
-          <button className="lg:h-10 h-7 w-24 bg-red-700 text-white lg:text-lg font-semibold  rounded-md ">
+          <button className="lg:h-10  w-24 bg-red-700 text-white text-lg font-semibold  rounded-md ">
             Add New
           </button>
         </div>
       </Link>
 
-      {testimonial && <Table data={testimonial} columns={columns} />}
+      {terms && <Table data={terms} columns={columns} />}
 
       
-      {/* <div className=" text-xl ">
-        <button onClick={handleEdit}></button>
-
-        <button onClick={handleDelete(Course._id)}></button>
-      </div> */}
+   
     </div>
   );
 }
 
-export default TestimonialsTable;
+export default TermsTable;

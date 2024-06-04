@@ -34,8 +34,11 @@ import Toolbar from '../component/Navigation/Toolbar'
 
 
   return (
-    <div className='flex '>
+    <div className='flex'>
+      <div className='w-fit hidden  lg:block'>
      <Sidebar/>
+
+      </div>
      <div className='w-full '>
      <Toolbar />
       <div className='mx-10'>

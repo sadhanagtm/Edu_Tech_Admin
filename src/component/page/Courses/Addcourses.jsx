@@ -6,7 +6,7 @@ import axios from "../../../Hoc/Axios";
 import { IoCloudUploadSharp } from "react-icons/io5";
 import JoditEditor from "jodit-react";
 import { duration } from "@mui/material";
-import * as Yup from "yup"
+import * as Yup from "yup";
 
 const schema = Yup.object().shape({
   name: Yup.string().required("This field is required"),
@@ -14,17 +14,24 @@ const schema = Yup.object().shape({
   duration: Yup.string().required("This field is required"),
   discount: Yup.string().required("This field is required"),
   rating: Yup.string()
-  .max(5,"Rating should be up to 5 only")
-  .required("This field is required"),
+    .max(5, "Rating should be up to 5 only")
+    .required("This field is required"),
   tags: Yup.string().required("This field is required"),
   description: Yup.string().required("This field is required"),
   image: Yup.string().required("This field is required"),
   overview: Yup.string().required("This field is required"),
-  
 });
 
 function Addcourses() {
-  
+  const data = [
+    { name: "name", type: "text", lable: "Name" },
+    { name: "price", type: "number", lable: "Price" },
+    { name: "duration", type: "text", lable: "Duration" },
+    { name: "rating", type: "number", lable: "Rating" },
+    { name: "tags", type: "text", lable: "Tags" },
+    { name: "discount", type: "percentge", lable: "Discount" },
+  ];
+
   const [value, setFieldValue] = useState("");
   const inputRef = useRef(null);
   const videoRef = useRef(null);
@@ -57,8 +64,6 @@ function Addcourses() {
     setVideo(e.target.files[0]);
   };
 
-
-
   useEffect(() => {
     let interval;
     if (redirect) {
@@ -84,10 +89,8 @@ function Addcourses() {
           tags: "",
           discount: "",
           overview: "",
-
         }}
         validationSchema={schema}
-
         onSubmit={(values, { resetForm }) => {
           try {
             const formData = new FormData();
@@ -100,7 +103,6 @@ function Addcourses() {
             formData.append("tags", values.tags);
             formData.append("discount", values.discount);
             formData.append("overview", values.overview);
-
 
             axios
               .post("/course/", formData)
@@ -129,142 +131,35 @@ function Addcourses() {
             <Form onSubmit={handleSubmit}>
               <Toaster />
 
-              <div className="ml-60 ">
-                <div className="grid grid-cols-3 gap-9 ">
-                  <div className="text-left">
-                    <div className="text-lg font-medium text-purple-700 mb-2">
-                      Name
-                    </div>
-                    <div>
-                      <Field
-                        name="name"
-                        type="text"
-                        label="hehe"
-                        className="outline-none h-10 w-[250px] outline-gray-200"
-                        onChange={(e) => {
-                          setFieldValue("name", e.target.value);
-                        }}
-                      />
-                     <ErrorMessage
-                        name="name"
-                     component={"div"}
-                    className="text-red-600"
-                         />
-                    </div>
-                  </div>
-
-                  <div className="text-left">
-                    <div className="text-lg font-medium text-purple-700 mb-2">
-                      Price
-                    </div>
-                    <div>
-                      <Field
-                        name="price"
-                        type="number"
-                        label="hehe"
-                        className="outline-none h-10 w-[250px] outline-gray-200"
-                        onChange={(e) => {
-                          setFieldValue("price", e.target.value);
-                        }}
-                      />
-                      <ErrorMessage
-                        name="price"
-                     component={"div"}
-                    className="text-red-600"
-                         />
-
-                    </div>
-                  </div>
-
-                  <div className="text-left">
-                    <div className="text-lg font-medium text-purple-700 mb-2">
-                      Duration
-                    </div>
-                    <div>
-                      <Field
-                        name="duration"
-                        type="text"
-                        label="hehe"
-                        className="outline-none h-10 w-[250px] outline-gray-200"
-                        onChange={(e) => {
-                          setFieldValue("duration", e.target.value);
-                        }}
-                      />
-                      <ErrorMessage
-                        name="durtion"
-                     component={"div"}
-                    className="text-red-600"
-                         />
-
-                    </div>
-                  </div>
-
-
-                  <div className="text-left">
-                    <div className="text-lg font-medium text-purple-700 mb-2">
-                      Rating
-                    </div>
-                    <div>
-                      <Field
-                        name="rating"
-                        type="number"
-                        label="hehe"
-                        className="outline-none h-10 w-[250px] outline-gray-200"
-                        onChange={(e) => {
-                          setFieldValue("rating",e.target.value);
-                        }}
-                      />
-                       <ErrorMessage
-                        name="rating"
-                     component={"div"}
-                    className="text-red-600"
-                         />
-                    </div>
-                  </div>
-
-                  <div className="text-left">
-                    <div className="text-lg font-medium text-purple-700 mb-2">
-                      Discount
-                    </div>
-                    <div>
-                      <Field
-                        name="discount"
-                        type="percentge"
-                        label="hehe"
-                        className="outline-none h-10 w-[250px] outline-gray-200"
-                        onChange={(e) => {
-                          setFieldValue("discount", e.target.value);
-                        }}
-                      />
-                       <ErrorMessage
-                        name="discount"
-                     component={"div"}
-                    className="text-red-600"
-                         />
-                    </div>
-                  </div>
-
-                  <div className="text-left">
-                    <div className="text-lg font-medium text-purple-700 mb-2">
-                      Tags
-                    </div>
-                    <div>
-                      <Field
-                        name="tags"
-                        type="text"
-                        label="hehe"
-                        className="outline-none h-10 w-[250px] outline-gray-200"
-                        onChange={(e) => {
-                          setFieldValue("tags", e.target.value);
-                        }}
-                      />
-                       <ErrorMessage
-                        name="tags"
-                     component={"div"}
-                    className="text-red-600"
-                         />
-                    </div>
-                  </div>
+              <div className="lg:ml-60 ">
+                <div className=" grid lg:grid-cols-3  sm:grid-cols-2 lg:gap-9 gap-4 sm:gap-8">
+                  {data.map((val, i) => {
+                    return (
+                        <div className="text-left">
+                          <div className="text-lg font-medium text-purple-700 mb-2">
+                            {val.lable}
+                          </div>
+                          <div>
+                            <Field
+                              name={val.name}
+                              autoComplete="off"
+                              type={val.type}
+                              className="outline-none h-10  w-full outline-gray-200 "
+                              onChange={(e) => {
+                                setFieldValue(val.name, e.target.value);
+                              }}
+                            />
+                            <ErrorMessage
+                              name={val.name}
+                              component={"div"}
+                              className="text-red-600"
+                            />
+                          </div>
+                        </div>
+                        
+                 
+                    );
+                  })}
                 </div>
 
                 <div className=" col-span-2 mt-10 grid grid-cols-1 justify-between">
@@ -276,12 +171,12 @@ function Addcourses() {
                       {values.image ? (
                         <img
                           src={URL.createObjectURL(values.image)}
-                          className="h-48  w-48"
+                          className="h-48  lg:w-48 w-full sm:w-48 "
                           alt=""
                           name="image"
                         />
                       ) : (
-                        <div className="h-48  w-48  border border-black border-dashed flex text-xl flex-col  justify-center text-center items-center text-gray-400 ">
+                        <div className="h-48  lg:w-48 sm:w-48  border border-black border-dashed flex text-xl flex-col  justify-center text-center items-center text-gray-400 ">
                           <div className="text-5xl">
                             <IoCloudUploadSharp />
                           </div>
@@ -297,14 +192,13 @@ function Addcourses() {
                         }}
                         style={{ display: "none" }}
                       />
-                       <ErrorMessage
+                      <ErrorMessage
                         name="image"
-                     component={"div"}
-                    className="text-red-600"
-                         />
+                        component={"div"}
+                        className="text-red-600"
+                      />
                     </div>
                   </div>
-
 
                   <div className="text-left mt-0  ">
                     <div className="text-lg font-medium text-purple-700 mb-2">
@@ -315,12 +209,12 @@ function Addcourses() {
                         <video
                           controls
                           src={URL.createObjectURL(values.overview)}
-                          className="h-full w-11/12"
+                          className="h-full lg:w-11/12 sm:w-48"
                           alt=""
                           name="overview"
                         />
                       ) : (
-                        <div className="h-48  w-48  border border-black border-dashed flex text-xl flex-col  justify-center text-center items-center text-gray-400 ">
+                        <div className="h-48  lg:w-48  sm:w-48 border border-black border-dashed flex text-xl flex-col  justify-center text-center items-center text-gray-400 ">
                           <div className="text-5xl">
                             <IoCloudUploadSharp />
                           </div>
@@ -336,38 +230,33 @@ function Addcourses() {
                         }}
                         style={{ display: "none" }}
                       />
-                       <ErrorMessage
+                      <ErrorMessage
                         name="overview"
-                     component={"div"}
-                    className="text-red-600"
-                         />
-
+                        component={"div"}
+                        className="text-red-600"
+                      />
                     </div>
                   </div>
-
-
 
                   <div className="text-left mt-10 ">
                     <div className="text-lg font-medium text-purple-700 mb-2 ">
                       Description
-                      
                       <JoditEditor
                         ref={editor}
                         value={content}
-                      name="description"
-
+                        name="description"
                         // config={config}
                         tabIndex={1} // tabIndex of textarea
                         onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
                         onChange={(newContent) => {
-                            setFieldValue("description", newContent );
+                          setFieldValue("description", newContent);
                         }}
                       />
-                       <ErrorMessage
+                      <ErrorMessage
                         name="description"
-                     component={"div"}
-                    className="text-red-600"
-                         />
+                        component={"div"}
+                        className="text-red-600"
+                      />
                     </div>
                   </div>
 

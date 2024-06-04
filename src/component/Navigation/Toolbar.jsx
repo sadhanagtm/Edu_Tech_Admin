@@ -2,16 +2,20 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { IoIosNotifications } from "react-icons/io";
  import { IoMdMail } from "react-icons/io";
+ import { IoMenuOutline } from "react-icons/io5";
 
 import { CgProfile } from "react-icons/cg";
 import { FaRegEdit } from "react-icons/fa";
 import { FiSettings,FiHelpCircle,FiLogOut   } from "react-icons/fi";
 import { MdOutlineForwardToInbox } from "react-icons/md";
+import Sidebar from './Sidebar';
 
 function Toolbar  ()  {
   const[open,setOpen] = useState(false);
   const divRef=useRef();
   const imgRef=useRef();
+  const [show, setShow] = useState(false);
+
   
   window.addEventListener('click',(e)=>{
     if(e.target !== divRef.current && e.target !== imgRef.current){
@@ -23,10 +27,17 @@ function Toolbar  ()  {
 
   return (
     <div className='flex '>
-    <div className="flex h-14 bg-primary justify-end fixed z-10 w-full ">
+    <div className="flex h-14  bg-primary justify-between fixed w-full z-20">
+        <img src={"/src/image/Lopho.png"} alt="image" className=" flex w-40 ml-7 h-12" />
+
+      <button onClick={()=>setShow(true)} className=' lg:hidden px-6'>
+      <IoMenuOutline className=' text-white h-8 w-8' />
+         </button>
+
+         {show && <Sidebar onClose={() => setShow(false)}/>}
    
-      <button className="cursor-pointer text-2xl flex gap-5 mr-10 mt-3 text-gray-300 ">
-        <div className='flex mt-1 gap-3'>
+      <div className="cursor-pointer text-2xl lg:flex gap-5 mr-10 mt-3 text-gray-300 hidden ">
+        <div className='flex mt-1 gap-3 '>
 
          <IoIosNotifications />
          <IoMdMail />
@@ -34,7 +45,9 @@ function Toolbar  ()  {
          <div className='h-8 w-8 ' onClick={()=>{setOpen(!open)}} >
             <img src='https://www.shareicon.net/data/128x128/2017/01/06/868320_people_512x512.png' ref={imgRef}/>
          </div>
-         </button>
+         </div>
+   
+
 
     </div>
    
@@ -47,7 +60,7 @@ function Toolbar  ()  {
    {
        open && 
       
-      <div ref={divRef} className='h-100 w-60 bg-gray-200 float-end mx-5 absolute z-10 right-0'>
+      <div ref={divRef} className='h-100 w-60 bg-gray-200 float-end mx-5 absolute z-10 right-0 mt-6'>
                    <div className=' text-black'>
                       <div className=' text-center my-9'>
                       <div className=' text-xl  font-semibold '>Laxmi Dhakal </div>

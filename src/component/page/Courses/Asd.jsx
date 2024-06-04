@@ -41,7 +41,7 @@ function Asd() {
   return (
     <Fragment>
       {course ? (
-        <div className=" w-full h-full overflow-scroll pb-10 mt-20 ml-10 ">
+        <div className=" w-full h-full overflow-scroll pb-10 mt-20 lg:ml-10  ">
           {/* {console.log(course)} */}
           <div className="grid grid-cols-2 shadow-2xl">
             <div
@@ -70,15 +70,15 @@ function Asd() {
           </div>
 
           {Show === "CourseInfo" ? (
-            <div className="grid grid-cols-2 ml-20 ">
-              <div className="flex flex-col ml-3">
-                <div className=" h-fit my-5 mx-14 shadow-2xl bg-white ">
+            <div className="grid lg:grid-cols-2 lg:ml-20 ">
+              <div className="flex flex-col lg:ml-3">
+                <div className=" h-fit my-5 lg:mx-14 shadow-2xl bg-white ">
                   {course?.map((val, i) => {
                     console.log(val);
                     let image = `${import.meta.env.VITE_API_URL}/public/${val.image}`;
 
                     return (
-                      <div className=" my-12 flex flex-col justify-between mx-20 ">
+                      <div className=" lg:my-12 my-6 flex flex-col justify-between lg:mx-20   ">
                         <div className=" flex justify-center items-center mr-10">
                           <img
                             src={image}
@@ -88,7 +88,7 @@ function Asd() {
                           />
                         </div>
 
-                        <div className=" grid grid-cols-2 gap-7 mt-16">
+                        <div className=" grid grid-cols-2 gap-7  mt-16 ml-5">
                           <div className="">
                             <div className=" text-purple-700 text-lg font-semibold ">
                               Name
@@ -96,7 +96,7 @@ function Asd() {
                             <div className=" capitalize ">{val.name}</div>
                           </div>
 
-                          <div className="ml-16">
+                          <div className="lg:ml-16">
                             <div className=" text-lg text-purple-700 font-semibold ">
                                Duration
                             </div>
@@ -110,25 +110,25 @@ function Asd() {
                             <div className=" uppercase "> {val.price}</div>
                           </div>
 
-                          <div className="ml-16">
+                          <div className="lg:ml-16">
                             <div className=" text-lg text-purple-700 font-semibold">
                               Rating
                             </div>
-                            <div className=" uppercase"> {val?.rating}</div>
+                            <div > {val?.rating}</div>
                           </div>
 
                           <div className=" ">
                             <div className=" text-lg text-purple-700 font-semibold ">
                               Discount
                             </div>
-                            <div className=" uppercase"> {val.discount}</div>
+                            <div className=" capitalize"> {val.discount}</div>
                           </div>
 
-                          <div className=" ml-16 ">
+                          <div className=" lg:ml-16 ">
                             <div className=" text-lg text-purple-700 font-semibold ">
                               Tags
                             </div>
-                            <div className=" uppercase "> {val.tags}</div>
+                            <div className=" capitalize "> {val.tags}</div>
                           </div>
 
                           <div className="">

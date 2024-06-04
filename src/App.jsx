@@ -30,6 +30,14 @@ import Testimonials from "./component/page/Testimonials/Testimonials";
 import TestimonialsTable from "./component/page/Testimonials/TestimonialsTable";
 import Addtestimonials from "./component/page/Testimonials/Addtestimonials";
 import Editcategory from "./component/page/Category/Editcategory";
+import Footer from "./component/page/Footer";
+import Teammember from "./component/page/Team members/Teammember";
+import Addteammember from "./component/page/Team members/Addteammember";
+import TeamTable from "./component/page/Team members/TeamTable";
+import Terms from "./component/page/TermsOfUse/Terms";
+import TermsTable from "./component/page/TermsOfUse/TermsTable";
+import AddTerms from "./component/page/TermsOfUse/AddTerms";
+
 function App() {
   return (
     <>
@@ -60,6 +68,16 @@ function App() {
           <Route path="/testimonialstable" element={<TestimonialsTable/>}/>
           <Route path="/addtestimonials" element={<Addtestimonials/>}/>
           <Route path="/Editcategory" element={<Editcategory/>}/>
+         <Route path="/footer" element={<Footer/>}/>
+         <Route path="/teammember" element={<Teammember/>}/>
+         <Route path="/addteammember" element={<Addteammember/>}/>
+         <Route path="/teamtable" element={<TeamTable/>}/>
+         <Route path="/terms" element={<Terms/>}/>
+         <Route path="/termstable" element={<TermsTable/>}/>
+         <Route path="/addterms" element={<AddTerms/>}/>
+
+
+
 
 
           </Route>

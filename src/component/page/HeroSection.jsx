@@ -81,23 +81,23 @@ function HeroSection() {
       >
         {({ handleSubmit, setFieldValue, values }) => {
           return (
-            <div className=" ml-48">
+            <div className=" lg:ml-48 ">
             <Form onSubmit={handleSubmit}>
               <Toaster />
-              <div className="text-3xl font-bold ml-20 text-purple-700 mb-10 ">Hero Section</div>
+              <div className="text-3xl font-bold lg:ml-20 text-purple-700 lg:mb-10 mb-5 ">Hero Section</div>
 
-              <div className=" flex flex-col gap-10 w-10/12 m-auto">
+              <div className=" flex flex-col gap-10 lg:w-10/12 m-auto">
             
                   <div className="text-left">
-                    <div className="text-lg font-medium text-purple-700 mb-2">
+                    <div className="text-lg font-medium text-purple-700  mb-2">
                       Title
                     </div>
                     <div>
                       <Field
                         name="title"
                         type="text"
-                        label="hehe"
-                        className="outline-none h-10 w-10/12 outline-gray-200"
+          
+                        className="outline-none h-10  outline-gray-200 w-full"
                         // onChange={(e) => {
                         //   setFieldValue("title", e.target.value);
                         // }}
@@ -105,8 +105,8 @@ function HeroSection() {
                     </div>
                   </div>
              
-                  <div className="text-left mt-10 ">
-                    <div className="text-lg font-medium text-purple-700 mb-2 w-10/12 ">
+                  <div className="text-left lg:mt-10 ">
+                    <div className="text-lg font-medium text-purple-700 mb-2  w-full ">
                       Description
                       <JoditEditor
                         ref={editor}
@@ -124,7 +124,7 @@ function HeroSection() {
 
               
 
-              <div className="flex gap-44">
+              <div className="lg:flex lg:gap-44">
                 
                   <div className="text-left mt-0  ">
                     <div className="text-lg font-medium text-purple-700 mb-2">
@@ -134,12 +134,12 @@ function HeroSection() {
                       {values.image ? (
                         <img 
                           src={URL.createObjectURL(values.image)}
-                          className="h-48 w-48"
+                          className="h-48  lg:w-48  w-full sm:w-48 "
                           alt=""
                           name="image"
                         />
                       ) : (
-                        <div className="h-48  w-48  border border-black border-dashed flex text-xl flex-col  justify-center text-center items-center text-gray-400 ">
+                        <div className="h-48 sm:w-48 lg:w-48  border border-black border-dashed flex text-xl flex-col  justify-center text-center items-center text-gray-400 ">
                           <div className="text-5xl">
                             <IoCloudUploadSharp />
                           </div>
@@ -161,7 +161,7 @@ function HeroSection() {
                   </div>
 
                  <div className=" mt-9">
-                  <select className=" border outline-none h-10 w-96 text-center text-xl text-purple-700 font-medium ">
+                  <select className=" border outline-none h-10 lg:w-96  text-center lg:text-xl text-sm w-full text-purple-700 font-medium ">
                     <option>Welcomepage</option>
                     <option>NumberInfo</option>
                     <option>Offers</option>

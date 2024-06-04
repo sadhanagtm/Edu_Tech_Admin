@@ -119,7 +119,7 @@ function Student() {
   };
 
   return (
-    <div className="ml-60">
+    <div className="lg:ml-60">
       <div className=" mt-20 ">
         <input
           type="text"
