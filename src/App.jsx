@@ -20,7 +20,7 @@ import Addinstructor from "./component/page/Instructor/Addinstructor";
 import Instructor from "./component/page/Instructor/Instructor";
 
 import Asd from "./component/page/Courses/Asd";
-import Categorydetail from "./component/page/Category/Categorydetail"
+import Categorydetail from "./component/page/Category/Categorydetail";
 // import Details from "./component/page/Details";
 import HeroSection from "./component/page/HeroSection";
 import Delete from "./Delete/Delete";
@@ -37,6 +37,8 @@ import TeamTable from "./component/page/Team members/TeamTable";
 import Terms from "./component/page/TermsOfUse/Terms";
 import TermsTable from "./component/page/TermsOfUse/TermsTable";
 import AddTerms from "./component/page/TermsOfUse/AddTerms";
+import EditInstructor from "./component/page/Instructor/EditInstructor";
+import InstructorDetails from "./component/page/Instructor/InstructorDetails";
 
 function App() {
   return (
@@ -45,41 +47,44 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<DashBoard />} />
-            <Route path="Student" element={<Student />} />
+            <Route path="herosection" element={<HeroSection />} />
             <Route path="Dashboard" element={<DashBoard />} />
+
             <Route path="Courses" element={<Courses />} />
+            <Route path="/Addcourses" element={<Addcourses />} />
+            <Route path="/edit" element={<Edit />} />
             <Route path="Courses/:id" element={<Asd />} />
+
+            <Route path="Category" element={<Category />} />
+            <Route path="/Addcategory" element={<Addcategory />} />
+            <Route path="/Editcategory" element={<Editcategory />} />
             <Route path="Category/:id" element={<Categorydetail />} />
+            <Route path="/kyctable" element={<Kyctable />} />
+
+            <Route path="Student" element={<Student />} />
+            <Route path="/Addstudent" element={<Addstudent />} />
             <Route path="Student/:id" element={<Studentsdetails />} />
 
-            <Route path="herosection" element={<HeroSection/>}/>
-            <Route path="Category" element={<Category />} />
-            <Route path="/kyctable" element={<Kyctable />} />
             <Route path="Instructor" element={<Instructor />} />
-            <Route path="/Addstudent" element={<Addstudent />} />
-            <Route path="/Addcourses" element={<Addcourses />} />
-            <Route path="/Addcategory" element={<Addcategory />} />
             <Route path="/Addinstructor" element={<Addinstructor />} />
-            {/* <Route path="/details" element={<Details />} /> */}
-          <Route path="/edit" element={<Edit />} />
-          <Route path="/delete" element={<Delete />} />
-          <Route path="/vision" element={<Vision/>}/>
-          <Route path="/testimonials" element={<Testimonials/>}/>
-          <Route path="/testimonialstable" element={<TestimonialsTable/>}/>
-          <Route path="/addtestimonials" element={<Addtestimonials/>}/>
-          <Route path="/Editcategory" element={<Editcategory/>}/>
-         <Route path="/footer" element={<Footer/>}/>
-         <Route path="/teammember" element={<Teammember/>}/>
-         <Route path="/addteammember" element={<Addteammember/>}/>
-         <Route path="/teamtable" element={<TeamTable/>}/>
-         <Route path="/terms" element={<Terms/>}/>
-         <Route path="/termstable" element={<TermsTable/>}/>
-         <Route path="/addterms" element={<AddTerms/>}/>
+            <Route path="/editinstructor" element={<EditInstructor />} />
+            <Route path="Instructor/:id" element={<InstructorDetails/>}/>
 
+            <Route path="/testimonials" element={<Testimonials />} />
+            <Route path="/testimonialstable" element={<TestimonialsTable />} />
+            <Route path="/addtestimonials" element={<Addtestimonials />} />
 
+            <Route path="/teammember" element={<Teammember />} />
+            <Route path="/addteammember" element={<Addteammember />} />
+            <Route path="/teamtable" element={<TeamTable />} />
 
-
-
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/termstable" element={<TermsTable />} />
+            <Route path="/addterms" element={<AddTerms />} />
+            
+            <Route path="/delete" element={<Delete />} />
+            <Route path="/vision" element={<Vision />} />
+            <Route path="/footer" element={<Footer />} />
           </Route>
 
           <Route path="/Login" element={<Login />} />

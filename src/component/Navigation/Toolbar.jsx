@@ -9,8 +9,10 @@ import { FaRegEdit } from "react-icons/fa";
 import { FiSettings,FiHelpCircle,FiLogOut   } from "react-icons/fi";
 import { MdOutlineForwardToInbox } from "react-icons/md";
 import Sidebar from './Sidebar';
+import { RxCross2 } from "react-icons/rx";
 
 function Toolbar  ()  {
+ 
   const[open,setOpen] = useState(false);
   const divRef=useRef();
   const imgRef=useRef();
@@ -29,6 +31,7 @@ function Toolbar  ()  {
     <div className='flex '>
     <div className="flex h-14  bg-primary justify-between fixed w-full z-20">
         <img src={"/src/image/Lopho.png"} alt="image" className=" flex w-40 ml-7 h-12" />
+
 
       <button onClick={()=>setShow(true)} className=' lg:hidden px-6'>
       <IoMenuOutline className=' text-white h-8 w-8' />

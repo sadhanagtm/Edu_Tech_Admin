@@ -10,7 +10,7 @@ import { useLocation } from "react-router-dom";
 
 function Editcategory() {
   const [value, setFieldValue] = useState("");
-  const [course, setcourse] = useState([]);
+  const [category, setCategory] = useState([]);
 
   const location = useLocation();
   const inputRef = useRef(null);
@@ -49,7 +49,7 @@ function Editcategory() {
         .get(`/category/${id}`)
         .then((res) => {
           console.log(res);
-          setcourse([res.data.newArr]);
+          setCategory([res.data.result]);
         })
         .catch((error) => {
           console.log(error);
@@ -67,17 +67,21 @@ function Editcategory() {
 
   return (
     <div className="mt-20">
-      {course && course.length > 0 && (
+      {category && category.length > 0 && (
         <Formik
           initialValues={{
-            name: course && course.length > 0 ? course[0].name : "",
-            // image: course && course.length > 0 ? course[0].image : "",
+            name: category && category.length > 0 ? category[0].name : "",
+        
+            // image: category && category.length > 0 ? category[0].image : "",
+       
           }}
           onSubmit={(values, { resetForm }) => {
             try {
               const formData = new FormData();
               formData.append("name", values.name);
+            
               formData.append("image", values.image);
+            
             } catch (error) {
               console.log(error);
             }
@@ -91,10 +95,10 @@ function Editcategory() {
               <Form onSubmit={handleSubmit}>
                 <Toaster />
 
-                {console.log(values, course)}
+                {console.log(values, category)}
 
-                <div className="ml-60 ">
-                  <div className="grid grid-cols-3 gap-9 ">
+                <div className="lg:ml-60 ">
+                  <div className="grid lg:grid-cols-3 sm:grid-cols-2 lg:gap-9 gap-4 sm:gap-8 ">
                     <div className="text-left">
                       <div className="text-lg font-medium text-purple-700 mb-2">
                         Name
@@ -104,21 +108,14 @@ function Editcategory() {
                           name="name"
                           type="text"
                           label="hehe"
-                          className="outline-none h-10 w-[250px] outline-gray-200"
+                          className="outline-none h-10  w-full outline-gray-200"
                           onChange={(e) => {
                             setFieldValue("name", e.target.value);
                           }}
                         />
                       </div>
                     </div>
-
-               
-
-        
-
-              
-
-                  </div>
+                </div>
 
                   <div className=" col-span-2 mt-10 grid grid-cols-1 justify-between">
                     <div className="text-left mt-0">
@@ -129,12 +126,12 @@ function Editcategory() {
                         {values.image ? (
                           <img
                             src={URL.createObjectURL(values.image)}
-                            className="h-48  w-48"
+                            className="h-48  lg:w-48 sm:w-48"
                             alt=""
                             name="image"
                           />
                         ) : (
-                          <div className="h-48  w-48  border border-black border-dashed flex text-xl flex-col  justify-center text-center items-center text-gray-400 ">
+                          <div className="h-48  lg:w-48 sm:w-48 border border-black border-dashed flex text-xl flex-col  justify-center text-center items-center text-gray-400 ">
                             <div className="text-5xl">
                               <IoCloudUploadSharp />
                             </div>

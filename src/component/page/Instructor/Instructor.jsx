@@ -5,19 +5,12 @@ import { MdDelete } from "react-icons/md";
 import { MdModeEdit } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-
-
-
-
-
-
 function Instructor() {
   const columns = [
     { name: "First Name", sortable: true, selector: (row) => row.firstName },
     { name: "Middle Name", sortable: true, selector: (row) => row.middleName },
     { name: "Last Name", sortable: true, selector: (row) => row.lastName },
     { name: "Password", sortable: true, selector: (row) => row.password },
-
 
     {
       name: "Image",
@@ -34,21 +27,40 @@ function Instructor() {
       selector: (row) => row.image,
     },
 
-    { name: "Address", sortable: true, selector: (row) => row.address },
+    { name: "Address", sortable: true, 
+    cell:(row)=>{
+      console.log(row);
+      return(
+        <div className="">
+          <Link to={`/instructor/${row.id}`}>{row.address}</Link>
+        </div>
+      )
+    },
+    
+    selector: (row) => row.address },
+    
     { name: "Phone", sortable: true, selector: (row) => row.phone },
     { name: "Email", sortable: true, selector: (row) => row.email },
     {
       name: "Action",
       cell: (row) => (
         <div className="gap-4 flex items-center justify-center text-xl ">
-          <button className="  " onClick={handleEdit} id={row.id}>
-            <MdModeEdit />
-          </button>
+          <Link
+            to={"/editinstructor"}
+            state={{
+              id: row.id,
+            }}
+          >
+            <button className="  " id={row.id}>
+              <MdModeEdit />
+            </button>
+          </Link>
 
           <button
-           className=" "
-           onClick={() => handleDelete(row.id)}
-            id={row.id}>
+            className=" "
+            onClick={() => handleDelete(row.id)}
+            id={row.id}
+          >
             <MdDelete />
           </button>
         </div>
@@ -124,15 +136,14 @@ function Instructor() {
           placeholder="search here"
         />
       </div>
-     
-     <Link to={"/addinstructor"}>
-     
-      <div className="  top-20 lg:right-10 right-4 absolute">
-        <button className="lg:h-10 h-7 w-24 bg-red-700 text-white lg:text-lg font-semibold  rounded-md ">
-          Add New
+
+      <Link to={"/addinstructor"}>
+        <div className="  top-20 lg:right-10 right-4 absolute">
+          <button className="lg:h-10 h-7 w-24 bg-red-700 text-white lg:text-lg font-semibold  rounded-md ">
+            Add New
           </button>
-      </div>
-     </Link>
+        </div>
+      </Link>
 
       {teacher && <Table data={teacher} columns={columns} />}
     </div>
@@ -141,7 +152,7 @@ function Instructor() {
 
 export default Instructor;
 
-    //   <div className=" text-xl ">
-    //     <button onClick={handleEdit}>{/* <MdOutlineEditNote /> */}</button>
-    //     <button onClick={handleDelete}>{/* <RiDeleteBin5Fill /> */}</button>
-    //   </div>
+//   <div className=" text-xl ">
+//     <button onClick={handleEdit}>{/* <MdOutlineEditNote /> */}</button>
+//     <button onClick={handleDelete}>{/* <RiDeleteBin5Fill /> */}</button>
+//   </div>

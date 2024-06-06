@@ -1,3 +1,5 @@
+
+
 import React, { Fragment, useEffect, useState } from "react";
 import axios from "../../../Hoc/Axios";
 import Accordion from "@mui/material/Accordion";
@@ -8,19 +10,31 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useParams } from "react-router-dom";
 import { duration } from "@mui/material";
 import { connect } from "formik";
+import { Field } from "formik";
 
-function Asd() {
+function InstructorDetails() {
+    const data = [
+        { name: "firstName", type: "text", label: "First Name" },
+        { name: "middleName", type: "text", label: "Middle Name" },
+        { name: "lastName", type: "text", label: "Last Name" },
+        { name: "phone", type: "number", label: "Phone" },
+        { name: "address", type: "text", label: "Address" },
+        { name: "email", type: "email", label: "Email" },
+        { name: "password", type: "password", label: "Password" },
+      ];
+
   const [Show, setShow] = useState("CourseInfo");
-  const [course, setcourse] = useState([]);
+  const [instructor, setInstructor] = useState([]);
+  
 
   const params = useParams();
   const getdata = (id) => {
     try {
       axios
-        .get(`/course/${id}`)
+        .get(`/instructor/${id}`)
         .then((res) => {
           console.log(res);
-          setcourse([res.data.result]);
+          setInstructor([res.data.result]);
         })
         .catch((error) => {
           console.log(error);
@@ -40,9 +54,9 @@ function Asd() {
 
   return (
     <Fragment>
-      {course ? (
+      {instructor ? (
         <div className=" w-full h-full overflow-scroll pb-10 mt-20 lg:ml-10  ">
-          {/* {console.log(course)} */}
+          {/* {console.log(instructor)} */}
           <div className="grid grid-cols-2 shadow-2xl">
             <div
               onClick={() => {
@@ -73,7 +87,7 @@ function Asd() {
             <div className="grid lg:grid-cols-2 lg:ml-20 ">
               <div className="flex flex-col lg:ml-3">
                 <div className=" h-fit my-5 lg:mx-14 shadow-2xl bg-white ">
-                  {course?.map((val, i) => {
+                  {instructor?.map((val, i) => {
                     console.log(val);
                     let image = `${import.meta.env.VITE_API_URL}/public/${val.image}`;
 
@@ -89,7 +103,32 @@ function Asd() {
                         </div>   
 
                         <div className=" grid grid-cols-2 gap-7  mt-16 ml-5">
-                          <div className="">
+
+                        {data.map((val, i) => {
+                      return (
+                        <div>
+                          <div className="text-left">
+                            <div className="text-lg font-medium text-purple-700 mb-2">
+                              {" "}
+                              {val.label}
+                            </div>
+                            <div>
+                              <Field
+                                name={val.name}
+                                autoComplete="off"
+                                type={val.type}
+                                className="outline-none h-10  w-full outline-gray-200 "
+                                onChange={(e) => {
+                                  setFieldValue(val.name, e.target.value);
+                                }}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+
+                          {/* <div className="">
                             <div className=" text-purple-700 text-lg font-semibold ">
                               Name
                             </div>
@@ -136,7 +175,7 @@ function Asd() {
                               Overview
                             </div>
                             <div className=" uppercase "> {val.overview}</div>
-                          </div>
+                          </div> */}
 
                         </div>
                       </div>
@@ -150,7 +189,7 @@ function Asd() {
                   <div className="font-semibold text-center text-xl pt-7  capitalize text-purple-700  ">
                     About this field
                   </div>
-                  {course?.map((val, i) => {
+                  {instructor?.map((val, i) => {
                     return (
                       <div className=" text-justify my-3 mx-3">
                         {val.description ? (
@@ -184,7 +223,7 @@ function Asd() {
             </div>
           ) : (
             <div className="w-10/12 mx-auto grid gap-6 mt-5  ">
-              {course.map((val, i) => {
+              {instructor.map((val, i) => {
                 return val.syllabus.map((item, ind) => {
                   return (
                     <Accordion key={i}>
@@ -225,4 +264,4 @@ function Asd() {
   );
 }
 
-export default Asd;
+export default InstructorDetails;

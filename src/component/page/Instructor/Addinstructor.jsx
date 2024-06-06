@@ -82,7 +82,6 @@ function Addinstructor() {
             formData.append("lastName", values.lastName);
             formData.append("middleName", values.middleName);
             formData.append("password", values.password);
-
             formData.append("email", values.email);
             formData.append("phone", values.phone);
             formData.append("image", values.image);
