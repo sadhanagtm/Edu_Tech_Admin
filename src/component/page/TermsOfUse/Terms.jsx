@@ -12,20 +12,25 @@ function Terms() {
 
   return (
     <div className="mt-20 lg:ml-60">
-      <div className=" h-16 w-full  bg-gray-50 shadow-xl flex rounded-lg  items-center justify-between">
-        <div className="  text-xl font-semibold ml-4 ">Terms Of Use</div>
-
+      <div>
+        <div className="sm:text-2xl text-xl font-bold  text-purple-700 font mt-2">
+          Terms Of Use
+        </div>
         <Link to={"/termstable"}>
-          <div className="flex gap-2 justify-between mr-7 cursor-pointer ">
-            <BsFillEyeFill className="  text-lg mt-1" />
-            View Terms
+          <div className="  top-20 lg:right-11 right-10 absolute ">
+            <button className="lg:h-10 h-7 w-20 bg-red-700 text-white lg:text-lg font-semibold  rounded-xl ">
+              View
+            </button>
           </div>
         </Link>
       </div>
 
-      <div className="text-left mt-14 ">
-        <div className="text-xl font-semibold text-purple-700 mb-2 w-full ">
+<div className=" gap-10 flex flex-col sm:mt-9 mt-5 mb-9 sm:text-xl  ">
+
+      <div>
+        <div className="font-semibold text-purple-700 mb-2 w-full ">
           Privacy Policy
+          </div>
           <JoditEditor
             ref={editor}
             value={content}
@@ -37,12 +42,12 @@ function Terms() {
               setFieldValue("description", newContent);
             }}
           />
-        </div>
       </div>
 
-      <div className="text-left mt-14 ">
-        <div className="text-xl font-semibold text-purple-700 mb-2 w-full ">
+      <div>
+        <div className=" font-semibold text-purple-700 mb-2 w-full ">
           Instructor Terms
+          </div>
           <JoditEditor
             ref={editor}
             value={content}
@@ -54,12 +59,12 @@ function Terms() {
               setFieldValue("instructorTerms", newContent);
             }}
           />
-        </div>
       </div>
 
-      <div className="text-left mt-14 ">
-        <div className="text-xl font-semibold text-purple-700 mb-2 w-full ">
+      <div>
+        <div className=" font-semibold text-purple-700 mb-2 w-full ">
           Pricing Policy
+          </div>
           <JoditEditor
             ref={editor}
             value={content}
@@ -71,12 +76,12 @@ function Terms() {
               setFieldValue("pricingPolicy", newContent);
             }}
           />
-        </div>
       </div>
 
-      <div className="text-left mt-14 ">
-        <div className="text-xl font-semibold text-purple-700 mb-2 w-full ">
+      <div>
+        <div className=" font-semibold text-purple-700 mb-2 w-full ">
           Business Privacy Statement
+          </div>
           <JoditEditor
             ref={editor}
             value={content}
@@ -88,12 +93,12 @@ function Terms() {
               setFieldValue("businessPrivacyStatement", newContent);
             }}
           />
-        </div>
       </div>
 
-      <div className="text-left mt-14 ">
-        <div className="text-xl font-semibold text-purple-700 mb-2 w-full ">
+      <div>
+        <div className=" font-semibold text-purple-700 mb-2 w-full ">
           Master Services Agreement
+          </div>
           <JoditEditor
             ref={editor}
             value={content}
@@ -105,12 +110,12 @@ function Terms() {
               setFieldValue("masterServicesAgreement", newContent);
             }}
           />
-        </div>
       </div>
 
-      <div className="text-left mt-14 ">
-        <div className="text-xl font-semibold text-purple-700 mb-2 w-full ">
+      <div>
+        <div className=" font-semibold text-purple-700 mb-2 w-full ">
           Business Term Conditions
+          </div>
           <JoditEditor
             ref={editor}
             value={content}
@@ -122,12 +127,12 @@ function Terms() {
               setFieldValue("businessTermConditions", newContent);
             }}
           />
-        </div>
       </div>
 
-      <div className="text-left mt-14 ">
-        <div className="text-xl font-semibold text-purple-700 mb-2 w-full ">
+      <div>
+        <div className="font-semibold text-purple-700 mb-2 w-full ">
           Affiliate Terms Conditions
+          </div>
           <JoditEditor
             ref={editor}
             value={content}
@@ -139,12 +144,12 @@ function Terms() {
               setFieldValue("affiliateTermsConditions", newContent);
             }}
           />
-        </div>
       </div>
 
-      <div className="text-left mt-14 ">
-        <div className="text-xl font-semibold text-purple-700 mb-2 w-full ">
+      <div>
+        <div className=" font-semibold text-purple-700 mb-2 w-full ">
           Launch Services
+          </div>
           <JoditEditor
             ref={editor}
             value={content}
@@ -156,12 +161,12 @@ function Terms() {
               setFieldValue("launchServices", newContent);
             }}
           />
-        </div>
       </div>
 
-      <div className="text-left mt-14 ">
-        <div className="text-xl font-semibold text-purple-700 mb-2 w-full ">
+      <div>
+        <div className=" font-semibold text-purple-700 mb-2 w-full ">
           DeletedAt
+          </div>
           <JoditEditor
             ref={editor}
             value={content}
@@ -173,12 +178,12 @@ function Terms() {
               setFieldValue("deletedAt", newContent);
             }}
           />
-        </div>
       </div>
 
-      <div className="text-left mt-14 ">
-        <div className="text-xl font-semibold text-purple-700 mb-2 w-full ">
+      <div >
+        <div className=" font-semibold text-purple-700 mb-2 w-full ">
           CreatedAt
+          </div>
           <JoditEditor
             ref={editor}
             value={content}
@@ -190,12 +195,12 @@ function Terms() {
               setFieldValue("createdAt", newContent);
             }}
           />
-        </div>
       </div>
 
-      <div className="text-left mt-14 ">
-        <div className="text-xl font-semibold text-purple-700 mb-2 w-full ">
+      <div>
+        <div className=" font-semibold text-purple-700 mb-2 w-full ">
           UpdatedAt
+          </div>
           <JoditEditor
             ref={editor}
             value={content}
@@ -207,8 +212,8 @@ function Terms() {
               setFieldValue("updatedAt", newContent);
             }}
           />
-        </div>
       </div>
+</div>
     </div>
   );
 }

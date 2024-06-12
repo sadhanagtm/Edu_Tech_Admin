@@ -40,7 +40,7 @@ function Vision() {
   }, [redirect]);
 
   return (
-    <div className="mt-20">
+    <div className="mt-20 lg:ml-60">
       <Formik
         initialValues={{
           title: "",
@@ -78,20 +78,16 @@ function Vision() {
       >
         {({ handleSubmit, setFieldValue, values }) => {
           return (
-            <div className=" lg:ml-48">
+            <div>
               <Form onSubmit={handleSubmit}>
                 <Toaster />
-{/*                
-                <div className=" h-16 w-10/12 bg-gray-50 shadow-xl flex rounded-lg  items-center justify-between ml-16 ">
-        <div className="  text-xl font-semibold ml-4 ">Our Vision</div>
-      </div> */}
 
 
-                <div className="text-3xl font-bold lg:ml-20 text-purple-700 lg:mb-10 ">
+                <div className="text-3xl font-bold  text-purple-700 lg:mb-10 ">
                   Our Vision
                 </div>
 
-                <div className=" flex flex-col gap-10 w-full m-auto">
+                <div className=" flex flex-col gap-7 w-full m-auto">
                   <div className="text-left">
                     <div className="text-lg font-medium text-purple-700 mb-2">
                       Title
@@ -109,7 +105,7 @@ function Vision() {
                     </div>
                   </div>
 
-                  <div className="text-left lg:mt-10 ">
+                  <div className="text-left  ">
                     <div className="text-lg font-medium text-purple-700 mb-2 w-full ">
                       Description
                       <JoditEditor
@@ -127,15 +123,15 @@ function Vision() {
                   </div>
 
                   <div className="lg:flex gap-44">
-                    <div className="text-left mt-0  ">
+                    <div>
                       <div className="text-lg font-medium text-purple-700 mb-2">
                         Icon
                       </div>
-                      <div onClick={handleImageClick}>
+                      <div onClick={handleImageClick} className=" border sm:w-48">
                         {values.image ? (
                           <img
                             src={URL.createObjectURL(values.image)}
-                            className="h-48 sm:w-48 lg:w-48 lg:h-48 w-full"
+                            className="h-48 sm:w-48 lg:w-48 lg:h-48 w-full object-contain"
                             alt=""
                             name="image"
                           />

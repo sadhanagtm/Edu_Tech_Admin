@@ -11,7 +11,7 @@ import { connect } from "formik";
 
 function Studentsdetails() {
   const [Show, setShow] = useState("CourseInfo");
-  const [course, setcourse] = useState([]);
+  const [student, setStudent] = useState([]);
 
   const params = useParams();
   const getdata = (id) => {
@@ -20,7 +20,7 @@ function Studentsdetails() {
         .get(`/student/${id}`)
         .then((res) => {
           console.log(res);
-          setcourse([res.data.result]);
+          setStudent([res.data.result]);
         })
         .catch((error) => {
           console.log(error);
@@ -40,9 +40,9 @@ function Studentsdetails() {
 
   return (
     <Fragment>
-      {course ? (
+      {student ? (
         <div className=" w-full h-full overflow-scroll pb-10 mt-20 ml-10 ">
-          {/* {console.log(course)} */}
+          {/* {console.log(student)} */}
           <div className="grid grid-cols-2 shadow-2xl">
             <div
               onClick={() => {
@@ -54,7 +54,7 @@ function Studentsdetails() {
             >
               Course Info
             </div>
-            <div
+            <div 
               onClick={() => {
                 setShow("Syllabus");
               }}
@@ -72,7 +72,7 @@ function Studentsdetails() {
             <div className="grid grid-cols-2 ml-20 ">
               <div className="flex flex-col ml-3">
                 <div className=" h-fit my-5 mx-14 shadow-2xl bg-white ">
-                  {course?.map((val, i) => {
+                  {student?.map((val, i) => {
                     console.log(val);
                     let image = `${import.meta.env.VITE_API_URL}/public/${val.image}`;
 
@@ -87,7 +87,7 @@ function Studentsdetails() {
                           />
                         </div>
 
-                        <div className=" grid grid-cols-2 gap-7 mt-16">
+                        <div className=" grid grid-cols-2  mt-16 gap-5 -ml-5">
                           <div className="">
                             <div className=" text-purple-700 text-lg font-semibold ">
                               Name
@@ -95,7 +95,7 @@ function Studentsdetails() {
                             <div className=" capitalize ">{val.name}</div>
                           </div>
 
-                          <div className="ml-16">
+                          <div className="ml-10">
                             <div className=" text-lg text-purple-700 font-semibold ">
                                Email
                             </div>
@@ -109,7 +109,7 @@ function Studentsdetails() {
                             <div className=" uppercase "> {val.address}</div>
                           </div>
 
-                          <div className="ml-16">
+                          <div className="ml-10">
                             <div className=" text-lg text-purple-700 font-semibold">
                               Phone
                             </div>
@@ -131,7 +131,7 @@ function Studentsdetails() {
                   <div className="font-semibold text-center text-xl pt-7  capitalize text-purple-700  ">
                     About this field
                   </div>
-                  {course?.map((val, i) => {
+                  {student?.map((val, i) => {
                     return (
                       <div className=" text-justify my-3 mx-3">
                         {val.description ? (
@@ -165,7 +165,7 @@ function Studentsdetails() {
             </div>
           ) : (
             <div className="w-10/12 mx-auto grid gap-6 mt-5  ">
-              {course.map((val, i) => {
+              {student.map((val, i) => {
                 return val.syllabus.map((item, ind) => {
                   return (
                     <Accordion key={i}>

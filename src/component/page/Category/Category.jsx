@@ -122,21 +122,23 @@ function Category() {
   };
 
   return (
-    <div className="lg:ml-56">
-      <div className=" mt-20 ">
+    <div className="lg:ml-60">
+      <div className=" mt-24 ">
         <input
           type="text"
           name="name"
+          autoComplete="off"
           value={query}
-          className=" border-2 border-black  rounded"
+          className=" border-2 border-black rounded-xl sm:h-8  w-32 sm:w-56 pl-3 pr-3 "
+
           onChange={(e) => handlesearch(e)}
           placeholder="search here"
         />
       </div>
 
       <Link to={"/Addcategory"}>
-        <div className="  top-20 lg:right-10 right-4 absolute">
-          <button className="lg:h-10 h-7 w-24 bg-red-700 text-white lg:text-lg font-semibold  rounded-md ">
+        <div className="  top-20 lg:right-10 right-4 absolute mt-4">
+          <button className="lg:h-10 h-7 w-24 bg-red-700 text-white lg:text-lg font-semibold  rounded-xl ">
             Add New
           </button>
         </div>

@@ -13,15 +13,6 @@ import { connect } from "formik";
 import { Field } from "formik";
 
 function InstructorDetails() {
-    const data = [
-        { name: "firstName", type: "text", label: "First Name" },
-        { name: "middleName", type: "text", label: "Middle Name" },
-        { name: "lastName", type: "text", label: "Last Name" },
-        { name: "phone", type: "number", label: "Phone" },
-        { name: "address", type: "text", label: "Address" },
-        { name: "email", type: "email", label: "Email" },
-        { name: "password", type: "password", label: "Password" },
-      ];
 
   const [Show, setShow] = useState("CourseInfo");
   const [instructor, setInstructor] = useState([]);
@@ -102,80 +93,57 @@ function InstructorDetails() {
                           />
                         </div>   
 
-                        <div className=" grid grid-cols-2 gap-7  mt-16 ml-5">
+                        <div className=" grid grid-cols-2  mt-16 gap-5 -ml-5">
 
-                        {data.map((val, i) => {
-                      return (
-                        <div>
-                          <div className="text-left">
-                            <div className="text-lg font-medium text-purple-700 mb-2">
-                              {" "}
-                              {val.label}
-                            </div>
-                            <div>
-                              <Field
-                                name={val.name}
-                                autoComplete="off"
-                                type={val.type}
-                                className="outline-none h-10  w-full outline-gray-200 "
-                                onChange={(e) => {
-                                  setFieldValue(val.name, e.target.value);
-                                }}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
-
-                          {/* <div className="">
+                        <div className="">
                             <div className=" text-purple-700 text-lg font-semibold ">
-                              Name
+                              First Name
                             </div>
-                            <div className=" capitalize ">{val.name}</div>
+                            <div className=" capitalize ">{val.firstname}</div>
                           </div>
 
-                          <div className="lg:ml-16">
+                          <div className="lg:ml-10">
                             <div className=" text-lg text-purple-700 font-semibold ">
-                               Duration
+                            Middle Name
                             </div>
-                            <div className=" capitalize "> {val.duration}</div>
+                            <div className=" capitalize "> {val.middleName}</div>
                           </div>
 
                           <div className="">
                             <div className=" text-lg text-purple-700 font-semibold ">
-                              Price
+                            Last Name
                             </div>
-                            <div className=" uppercase "> {val.price}</div>
+                            <div className=" uppercase "> {val.lastName}</div>
                           </div>
 
-                          <div className="lg:ml-16">
+                          <div className="lg:ml-10">
                             <div className=" text-lg text-purple-700 font-semibold">
-                              Rating
+                            Password
                             </div>
-                            <div > {val?.rating}</div>
+                            <div > {val?.password}</div>
                           </div>
 
                           <div className=" ">
                             <div className=" text-lg text-purple-700 font-semibold ">
-                              Discount
+                            Address
                             </div>
-                            <div className=" capitalize"> {val.discount}</div>
+                            <div className=" capitalize"> {val.address}</div>
                           </div>
 
-                          <div className=" lg:ml-16 ">
+                          <div className=" lg:ml-10 ">
                             <div className=" text-lg text-purple-700 font-semibold ">
-                              Tags
+                            Phone
                             </div>
-                            <div className=" capitalize "> {val.tags}</div>
+                            <div className=" capitalize "> {val.phone}</div>
                           </div>
 
-                          <div className="">
+                          
+                          <div className=" ">
                             <div className=" text-lg text-purple-700 font-semibold ">
-                              Overview
+                            Email
                             </div>
-                            <div className=" uppercase "> {val.overview}</div>
-                          </div> */}
+                            <div className=" capitalize"> {val.email}</div>
+                          </div> 
 
                         </div>
                       </div>

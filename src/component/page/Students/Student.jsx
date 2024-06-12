@@ -120,12 +120,13 @@ function Student() {
 
   return (
     <div className="lg:ml-60">
-      <div className=" mt-20 ">
+      <div className=" mt-24 ">
         <input
           type="text"
           name="name"
+          autoComplete="off"
           value={query}
-          className=" border-2 border-black mt  rounded"
+          className=" border-2 border-black rounded-xl h-8 pl-3 pr-3  "
           onChange={(e) => handlesearch(e)}
           placeholder="search here"
         />

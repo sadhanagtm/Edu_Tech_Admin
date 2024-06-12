@@ -40,18 +40,22 @@ function Testimonials() {
   }, [redirect]);
 
   return (
-    <div className="lg:ml-64 mt-20 -ml-2">
-      <div className=" h-16 lg:w-full  bg-gray-50 shadow-xl flex rounded-lg -ml-1 items-center justify-between">
-        <div className="  lg:text-xl font-semibold ml-4 ">Testimonials</div>
-        <Link to={"/testimonialstable"}>
-          <div className="flex gap-2   justify-between lg:mr-7 mr-3 cursor-pointer  ">
-            <BsFillEyeFill className="  lg:text-lg mt-1" />
-           <div> View Testimonials</div> 
-          </div>
-        </Link>
+    <div className="lg:ml-64 mt-20">
+      <div>
+              <div className="text-2xl font-bold  text-purple-700 font">Testimonial</div>
+              <Link to={"/testimonialstable"}>
+        <div className="  top-20 lg:right-8 right-4 absolute ">
+          <button className="lg:h-10 h-7 w-20 bg-red-700 text-white lg:text-lg font-semibold  rounded-xl ">
+            View
+          </button>
+        </div>
+      </Link>
       </div>
+              
 
-      <div className="mt-10  lg:w-11/12">
+   
+
+      <div className="mt-6 w-full">
         <Formik
           initialValues={{
             title: "",
@@ -93,8 +97,8 @@ function Testimonials() {
                 <Form onSubmit={handleSubmit}>
                   <Toaster />
 
-                  <div className=" flex flex-col lg:gap-10  w-full m-auto ml-1 ">
-                    <div className="text-left">
+                  <div className=" flex flex-col lg:gap-8 gap-5  w-full m-auto ml-1   ">
+                    <div>
                       <div className="text-lg font-medium text-purple-700 mb-2">
                         Title
                       </div>
@@ -104,7 +108,7 @@ function Testimonials() {
                           autoComplete="off"
                           type="text"
                           label="hehe"
-                          className="outline-none h-10 w-full  outline-gray-200"
+                          className="outline-none h-8 w-full  outline-gray-200"
                           // onChange={(e) => {
                           //   setFieldValue("title", e.target.value);
                           // }}
@@ -112,9 +116,10 @@ function Testimonials() {
                       </div>
                     </div>
 
-                    <div className="text-left mt-10 ">
+                    <div>
                       <div className="text-lg font-medium text-purple-700 mb-2 w-full ">
                         Description
+                       </div>
                         <JoditEditor
                           ref={editor}
                           value={content}
@@ -126,11 +131,10 @@ function Testimonials() {
                             setFieldValue("description", newContent);
                           }}
                         />
-                      </div>
                     </div>
 
                    
-                      <div className="text-left mt-0  ">
+                      <div>
                         <div className="text-lg font-medium text-purple-700 mb-2">
                           Video
                         </div>
@@ -139,12 +143,12 @@ function Testimonials() {
                             <video
                               controls
                               src={URL.createObjectURL(values.video)}
-                              className="h-full lg:w-11/12  "
+                              className="sm:h-80 h-48 w-full   "
                               alt=""
                               name="video"
                             />
                           ) : (
-                            <div className="h-48  lg:w-48  border border-black border-dashed flex text-xl flex-col  justify-center text-center items-center text-gray-400 ">
+                            <div className="sm:h-80 h-48 w-full  border border-black border-dashed flex text-xl flex-col  justify-center text-center items-center text-gray-400 ">
                               <div className="text-5xl">
                                 <IoCloudUploadSharp />
                               </div>
@@ -167,7 +171,7 @@ function Testimonials() {
 
                 
 
-                    <div className="text-left flex gap-5 ">
+                    <div className="flex gap-5 ">
                       {/* <button
                       onClick={() => {
                         Navigation(-1);
@@ -180,7 +184,7 @@ function Testimonials() {
 
                       <button
                         type="submit"
-                        className="bg-indigo-600 h-10 my-5 w-24 text-lg rounded-lg text-center text-white  hover:bg-indigo-400"
+                        className="bg-indigo-600 h-10 w-24 text-lg rounded-lg text-center text-white  hover:bg-indigo-400 mb-2"
                       >
                         Submit
                       </button>

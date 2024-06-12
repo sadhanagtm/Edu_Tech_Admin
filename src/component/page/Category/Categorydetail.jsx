@@ -11,7 +11,7 @@ import { connect } from "formik";
 
 function Categorydetail() {
   const [Show, setShow] = useState("CourseInfo");
-  const [course, setcourse] = useState([]);
+  const [category, setCategory] = useState([]);
 
   const params = useParams();
   const getdata = (id) => {
@@ -20,7 +20,7 @@ function Categorydetail() {
         .get(`/category/${id}`)
         .then((res) => {
           console.log(res);
-          setcourse([res.data.result]);
+          setCategory([res.data.result]);
         })
         .catch((error) => {
           console.log(error);
@@ -40,9 +40,9 @@ function Categorydetail() {
 
   return (
     <Fragment>
-      {course ? (
-        <div className=" w-full h-full overflow-scroll pb-10 mt-20 ml-10 ">
-          {/* {console.log(course)} */}
+      {category ? (
+        <div className=" w-full h-full overflow-scroll pb-10 mt-20 lg:ml-10 ">
+          {/* {console.log(category)} */}
           <div className="grid grid-cols-2 shadow-2xl">
             <div
               onClick={() => {
@@ -69,15 +69,15 @@ function Categorydetail() {
           </div>
 
           {Show === "CourseInfo" ? (
-            <div className="grid grid-cols-2 ml-20 ">
-              <div className="flex flex-col ml-3">
-                <div className=" h-fit my-5 mx-14 shadow-2xl bg-white ">
-                  {course?.map((val, i) => {
+            <div className="grid lg:grid-cols-2 lg:ml-20 ">
+              <div className="flex flex-col lg:ml-3">
+                <div className=" h-fit my-5 lg:mx-14 shadow-2xl bg-white ">
+                  {category?.map((val, i) => {
                     console.log(val);
                     let image = `${import.meta.env.VITE_API_URL}/public/${val.image}`;
 
                     return (
-                      <div className=" my-12 flex flex-col justify-between mx-20 ">
+                      <div className=" lg:my-12 flex flex-col justify-between lg:mx-20  ">
                         <div className=" flex justify-center items-center mr-10">
                           <img
                             src={image}
@@ -103,12 +103,12 @@ function Categorydetail() {
                 </div>
               </div>
 
-              <div className="flex flex-col mr-3">
-                <div className=" my-5 h-full ">
+              <div className="flex flex-col mr-3 ">
+                <div className=" my-5 h-full  ">
                   <div className="font-semibold text-center text-xl pt-7  capitalize text-purple-700  ">
                     About this field
                   </div>
-                  {course?.map((val, i) => {
+                  {category?.map((val, i) => {
                     return (
                       <div className=" text-justify my-3 mx-3">
                         {val.description ? (
@@ -142,7 +142,7 @@ function Categorydetail() {
             </div>
           ) : (
             <div className="w-10/12 mx-auto grid gap-6 mt-5  ">
-              {course.map((val, i) => {
+              {category.map((val, i) => {
                 return val.syllabus.map((item, ind) => {
                   return (
                     <Accordion key={i}>

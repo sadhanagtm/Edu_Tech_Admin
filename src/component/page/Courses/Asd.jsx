@@ -88,7 +88,7 @@ function Asd() {
                           />
                         </div>   
 
-                        <div className=" grid grid-cols-2 gap-7  mt-16 ml-5">
+                        <div className=" grid grid-cols-2 gap-5  mt-16 -ml-5 ">
                           <div className="">
                             <div className=" text-purple-700 text-lg font-semibold ">
                               Name
@@ -96,7 +96,7 @@ function Asd() {
                             <div className=" capitalize ">{val.name}</div>
                           </div>
 
-                          <div className="lg:ml-16">
+                          <div className="lg:ml-10">
                             <div className=" text-lg text-purple-700 font-semibold ">
                                Duration
                             </div>
@@ -110,7 +110,7 @@ function Asd() {
                             <div className=" uppercase "> {val.price}</div>
                           </div>
 
-                          <div className="lg:ml-16">
+                          <div className="lg:ml-10">
                             <div className=" text-lg text-purple-700 font-semibold">
                               Rating
                             </div>
@@ -124,7 +124,7 @@ function Asd() {
                             <div className=" capitalize"> {val.discount}</div>
                           </div>
 
-                          <div className=" lg:ml-16 ">
+                          <div className=" lg:ml-10 ">
                             <div className=" text-lg text-purple-700 font-semibold ">
                               Tags
                             </div>

@@ -113,8 +113,10 @@ function Addinstructor() {
           return (
             <Form onSubmit={handleSubmit}>
               <Toaster />
-              <div className="lg:ml-60 -ml-8">
-                <div className=" grid lg:grid-cols-3 sm:grid-cols-2 lg:gap-9 gap-4 sm:gap-8">
+              <div className="lg:ml-52 -ml-8">
+              <div className="text-2xl font-bold  text-purple-700 lg:mb-6 mb-3 font">Instructor</div>
+                 
+                <div className=" grid lg:grid-cols-3 sm:grid-cols-2 lg:gap-8 gap-4 sm:gap-8">
                   {data.map((val, i) => {
                     return (
                       <div>
@@ -128,7 +130,7 @@ function Addinstructor() {
                               name={val.name}
                               autoComplete="off"
                               type={val.type}
-                              className="outline-none h-10  w-full outline-gray-200 "
+                              className="outline-none h-8  w-full outline-gray-200 "
                               onChange={(e) => {
                                 setFieldValue(val.name, e.target.value);
                               }}
@@ -150,16 +152,16 @@ function Addinstructor() {
                     <div className="text-lg font-medium text-purple-700 mb-2">
                       Upload Image
                     </div>
-                    <div onClick={handleImageClick}>
+                    <div onClick={handleImageClick} className="border sm:w-48">
                       {values.image ? (
                         <img
                           src={URL.createObjectURL(values.image)}
-                          className="h-48 lg:w-48 w-full  sm:w-48"
+                          className="h-48 lg:w-48 w-full object-contain sm:w-48"
                           alt=""
                           name="image"
                         />
                       ) : (
-                        <div className="h-48  lg:w-48  sm:w-48 border border-black border-dashed flex text-xl flex-col  justify-center text-center items-center text-gray-400 ">
+                        <div className="h-48  lg:w-48  sm:w-48 w-full border border-black border-dashed flex text-xl flex-col  justify-center text-center items-center text-gray-400 ">
                           <div className="text-5xl">
                             <IoCloudUploadSharp />
                           </div>
@@ -183,7 +185,7 @@ function Addinstructor() {
                     </div>
                   </div>
 
-                  <div className="text-left flex gap-5 ">
+                  <div className="text-left flex gap-5 my-5 ">
                     <button
                       onClick={() => {
                         Navigation(-1);

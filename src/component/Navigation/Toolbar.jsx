@@ -12,11 +12,15 @@ import Sidebar from './Sidebar';
 import { RxCross2 } from "react-icons/rx";
 
 function Toolbar  ()  {
+  
  
   const[open,setOpen] = useState(false);
   const divRef=useRef();
   const imgRef=useRef();
-  const [show, setShow] = useState(false);
+  const [isShow, setIsShow] = useState(false);
+  const toggleMenu = () =>{
+    setIsShow(!isShow);
+  };
 
   
   window.addEventListener('click',(e)=>{
@@ -33,11 +37,18 @@ function Toolbar  ()  {
         <img src={"/src/image/Lopho.png"} alt="image" className=" flex w-40 ml-7 h-12" />
 
 
-      <button onClick={()=>setShow(true)} className=' lg:hidden px-6'>
-      <IoMenuOutline className=' text-white h-8 w-8' />
+      <button onClick={toggleMenu} className=' lg:hidden px-6'>
+        {
+          isShow?(
+            <RxCross2 className=' text-white h-11 w-11 animate-pulse hover:bg-zinc-300 hover:text-black hover:rounded-xl'/>
+          ):(
+            
+            <IoMenuOutline className=' text-white h-11 w-11 hover:bg-zinc-300 hover:text-black hover:rounded-xl ' />
+          )
+        }
          </button>
 
-         {show && <Sidebar onClose={() => setShow(false)}/>}
+         {isShow && <Sidebar onClose={() => setIsShow(false)}/>}
    
       <div className="cursor-pointer text-2xl lg:flex gap-5 mr-10 mt-3 text-gray-300 hidden ">
         <div className='flex mt-1 gap-3 '>

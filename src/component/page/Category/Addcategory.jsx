@@ -44,7 +44,7 @@ function Addcategory() {
   }, [redirect]);
 
   return (
-    <div className="mt-20 ml-60">
+    <div className="mt-20 lg:ml-72">
       <Formik
         initialValues={{
           name: "",
@@ -83,10 +83,13 @@ function Addcategory() {
             <Form onSubmit={handleSubmit}>
               <Toaster />
               
-              <div className="grid lg:grid-cols-2 lg:gap-10  left-0 absolute lg:ml-72 ml-10 w-full">
+              <div className="">
+
+              <div className="text-2xl font-bold  text-purple-700 lg:mb-6 mb-3 font">Category</div>
+
                 
-                <div className="text-left">
-                  <div className="text-lg font-medium text-purple-700 mb-2">
+                <div className="lg:w-11/12 ">
+                  <div className=" font-medium text-purple-700 mb-2 mt-6">
                     Name
                   </div>
                   <div>
@@ -94,8 +97,7 @@ function Addcategory() {
                       name="name"
                       autoComplete="off"
                       type="text"
-                      label="hehe"
-                      className="outline-none h-10 w-full outline-gray-200"
+                      className="outline-none h-8 w-full outline-gray-200"
                       onChange={(e) => {
                         setFieldValue("name", e.target.value);
                       }}
@@ -108,21 +110,21 @@ function Addcategory() {
                   </div>
                 </div>
 
-                <div className=" col-span-2 mt-4 grid grid-cols-1 justify-between">
-                  <div className="text-left mt-0">
-                    <div className="text-lg font-medium text-purple-700 mb-2">
+                <div className=" ">
+                  <div className="mt-7 ">
+                    <div className="font-medium text-purple-700 mb-2">
                       Upload Image
                     </div>
-                    <div onClick={handleImageClick}>
+                    <div onClick={handleImageClick} className="border w-48">
                       {values.image ? (
                         <img
                           src={URL.createObjectURL(values.image)}
-                          className="h-48 w-48  justify-center"
+                          className="h-48 w-48 object-contain"
                           alt=""
                           name="image"
                         />
                       ) : (
-                        <div className="h-48  w-48  border border-black border-dashed flex text-xl flex-col  justify-center text-center items-center text-gray-400 ">
+                        <div className="h-48 sm:w-48  border border-black border-dashed flex text-xl flex-col  justify-center text-center items-center text-gray-400 ">
                           <div className="text-5xl">
                             <IoCloudUploadSharp />
                           </div>

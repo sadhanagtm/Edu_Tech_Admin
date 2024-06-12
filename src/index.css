@@ -5,5 +5,10 @@
 
 
 .jodit-wysiwyg{
-    height: 400px !important;
+    height: 300px !important;
+}
+
+
+.font{
+    font-family: "Noto Serif", serif;
 }
