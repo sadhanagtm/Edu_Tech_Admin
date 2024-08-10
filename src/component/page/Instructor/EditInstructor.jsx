@@ -6,7 +6,8 @@ import axios from "../../../Hoc/Axios";
 import { IoCloudUploadSharp } from "react-icons/io5";
 import JoditEditor from "jodit-react";
 import { duration } from "@mui/material";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 
 function EditInstructor() {
   const data = [
@@ -16,16 +17,19 @@ function EditInstructor() {
     { name: "phone", type: "number", label: "Phone" },
     { name: "address", type: "text", label: "Address" },
     { name: "email", type: "email", label: "Email" },
-    { name: "password", type: "password", label: "Password" },
+    // { name: "password", type: "password", label: "Password" },
   ];
 
   const [value, setFieldValue] = useState("");
   const [instructor, setInstructor] = useState([]);
+  const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
 
   const location = useLocation();
   const inputRef = useRef(null);
   const [image, setImage] = useState("");
-  const [redirect, setredirect] = useState(false);
+  const [redirect, setRedirect] = useState(false);
   const [placeholder, setplaceholder] = useState("enter description...");
 
   const editor = useRef(null);
@@ -45,13 +49,13 @@ function EditInstructor() {
     let interval;
     if (redirect) {
       interval = setTimeout(() => {
-        Navigation("/");
+        navigate("/instructor");
       }, 2000);
     }
     return () => {
       clearTimeout(interval);
     };
-  }, [redirect]);
+  }, [redirect, navigate]);
 
   const getdata = (id) => {
     try {
@@ -76,13 +80,13 @@ function EditInstructor() {
   }, []);
 
   return (
-    <div className="mt-20">
+    <div className="mt-20 lg:ml-52">
       {instructor && instructor.length > 0 && (
         <Formik
           initialValues={{
-            firstname:
+            firstName:
               instructor && instructor.length > 0
-                ? instructor[0].firstname
+                ? instructor[0].firstName
                 : "",
             lastName:
               instructor && instructor.length > 0 ? instructor[0].lastName : "",
@@ -90,29 +94,49 @@ function EditInstructor() {
               instructor && instructor.length > 0
                 ? instructor[0].middleName
                 : "",
-            password:
-              instructor && instructor.length > 0 ? instructor[0].password : "",
-            // image: instructor && instructor.length > 0 ? instructor[0].image : "",
+            // password:
+            //   instructor && instructor.length > 0 ? instructor[0].password : "",
+            oldimage:
+              instructor && instructor.length > 0 ? instructor[0].image : "",
+            image: "",
             email:
               instructor && instructor.length > 0 ? instructor[0].email : "",
             phone:
               instructor && instructor.length > 0 ? instructor[0].phone : "",
             address:
-            instructor && instructor.length > 0 ? instructor[0].address : "",
+              instructor && instructor.length > 0 ? instructor[0].address : "",
           }}
           onSubmit={(values, { resetForm }) => {
+            setLoading(true); //set loading to true before API call
+
             try {
               const formData = new FormData();
               formData.append("firstName", values.firstName);
               formData.append("lastName", values.lastName);
               formData.append("middleName", values.middleName);
-              formData.append("password", values.password);
+              // formData.append("password", values.password);
               formData.append("email", values.email);
               formData.append("phone", values.phone);
               formData.append("image", values.image);
               formData.append("address", values.address);
+
+              axios
+                .patch(`/instructor/${location.state.id}/`, formData)
+                .then((res) => {
+                  console.log(res);
+                  toast.success("Save Successfully");
+                  setRedirect((prev) => !prev);
+                  setInstructor([...res.data.data]);
+                  setLoading(false); //set loading to false before API call
+                })
+                .catch((error) => {
+                  console.log(error);
+                  toast.error(error.response.data.message);
+                  setLoading(false); //set loading to false before API call
+                });
             } catch (error) {
               console.log(error);
+              setLoading(false); //set loading to false before API call
             }
 
             console.log(values);
@@ -124,9 +148,15 @@ function EditInstructor() {
               <Form onSubmit={handleSubmit}>
                 <Toaster />
 
+                {loading && (
+                  <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50">
+                    <ClipLoader size={50} color={"#123abc"} loading={loading} />
+                  </div>
+                )}
+
                 {console.log(values, instructor)}
 
-                <div className="lg:ml-60 ">
+                <div>
                   <div className="grid lg:grid-cols-3 sm:grid-cols-2 lg:gap-9 gap-4 sm:gap-8 ">
                     {data.map((val, i) => {
                       return (
@@ -151,108 +181,6 @@ function EditInstructor() {
                         </div>
                       );
                     })}
-
-                    {/* <div className="text-left">
-                      <div className="text-lg font-medium text-purple-700 mb-2">
-                        Name
-                      </div>
-                      <div>
-                        <Field
-                          name="firstName"
-                          type="text"
-                          label="hehe"
-                          className="outline-none h-10  w-full outline-gray-200"
-                          onChange={(e) => {
-                            setFieldValue("name", e.target.value);
-                          }}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="text-left">
-                      <div className="text-lg font-medium text-purple-700 mb-2">
-                        Price
-                      </div>
-                      <div>
-                        <Field
-                          name="middlename"
-                          type="text"
-                          label="hehe"
-                          className="outline-none h-10  w-full outline-gray-200"
-                          onChange={(e) => {
-                            setFieldValue("price", e.target.value);
-                          }}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="text-left">
-                      <div className="text-lg font-medium text-purple-700 mb-2">
-                        Duration
-                      </div>
-                      <div>
-                        <Field
-                          name="lastname"
-                          type="text"
-                          label="hehe"
-                          className="outline-none h-10  w-full outline-gray-200"
-                          onChange={(e) => {
-                            setFieldValue("duration", e.target.value);
-                          }}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="text-left">
-                      <div className="text-lg font-medium text-purple-700 mb-2">
-                        Password
-                      </div>
-                      <div>
-                        <Field
-                          name="password"
-                          type="password"
-                          label="hehe"
-                          className="outline-none h-10  w-full outline-gray-200"
-                          onChange={(e) => {
-                            setFieldValue("rating", e.target.value);
-                          }}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="text-left">
-                      <div className="text-lg font-medium text-purple-700 mb-2">
-                        Discount
-                      </div>
-                      <div>
-                        <Field
-                          name="email"
-                          type="email"
-                          label="hehe"
-                          className="outline-none h-10  w-full outline-gray-200"
-                          onChange={(e) => {
-                            setFieldValue("discount", e.target.value);
-                          }}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="text-left">
-                      <div className="text-lg font-medium text-purple-700 mb-2">
-                        Address
-                      </div>
-                      <div>
-                        <Field
-                          name="address"
-                          type="text"
-                          label="hehe"
-                          className="outline-none h-10  w-full outline-gray-200"
-                          onChange={(e) => {
-                            setFieldValue("tags", e.target.value);
-                          }}
-                        />
-                      </div>
-                    </div> */}
                   </div>
 
                   <div className=" col-span-2 mt-10 grid grid-cols-1 justify-between">
@@ -260,25 +188,29 @@ function EditInstructor() {
                       <div className="text-lg font-medium text-purple-700 mb-2">
                         Upload Image
                       </div>
-                      <div onClick={handleImageClick}>
+                      <div
+                        onClick={handleImageClick}
+                        className=" border sm:w-48"
+                      >
                         {values.image ? (
                           <img
                             src={URL.createObjectURL(values.image)}
-                            className="h-48  lg:w-48 sm:w-48"
+                            className="h-48  lg:w-48 sm:w-48 object-contain"
                             alt=""
                             name="image"
                           />
                         ) : (
-                          <div className="h-48  lg:w-48 sm:w-48 border border-black border-dashed flex text-xl flex-col  justify-center text-center items-center text-gray-400 ">
-                            <div className="text-5xl">
-                              <IoCloudUploadSharp />
-                            </div>
-                            <div>Click to upload</div>
-                          </div>
+                          <img
+                            src={`http://192.168.1.95:8080/public/${values.oldimage}`}
+                            className="h-48  lg:w-48 sm:w-48"
+                            alt=""
+                            name="image"
+                          />
                         )}
                         <input
                           name="image"
                           type="file"
+                          accept="image/*"
                           ref={inputRef}
                           onChange={(e) => {
                             setFieldValue("image", e.target.files[0]);
@@ -287,27 +219,11 @@ function EditInstructor() {
                         />
                       </div>
                     </div>
-{/* 
-                    <div className="text-left mt-10 ">
-                      <div className="text-lg font-medium text-purple-700 mb-2 ">
-                        Description
-                        <JoditEditor
-                          ref={editor}
-                          value={content}
-                          // config={config}
-                          tabIndex={1} // tabIndex of textarea
-                          onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
-                          onChange={(newContent) => {
-                            setFieldValue("description", newContent);
-                          }}
-                        />
-                      </div>
-                    </div> */}
 
                     <div className="text-left flex gap-5 ">
                       <button
                         onClick={() => {
-                          Navigation(-1);
+                          navigate(-1);
                         }}
                         type="button"
                         className="bg-red-600 h-10 my-5 w-24 text-lg rounded-lg text-center text-white hover:bg-red-500"

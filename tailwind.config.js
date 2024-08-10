@@ -5,6 +5,7 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode:"class",
   theme: {
     extend: {
       height:{
@@ -14,6 +15,8 @@ export default {
 
       backgroundColor:{
         'primary':"#04413D",
+        'ternary':"#68428A"
+
         
         
       },

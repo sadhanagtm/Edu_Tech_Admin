@@ -4,13 +4,31 @@ import axiosinstance from "../../../Hoc/Axios";
 import { MdDelete } from "react-icons/md";
 import { MdModeEdit } from "react-icons/md";
 import { Link } from "react-router-dom";
+import Modal from "../../../Delete/Modal";
 
 function Instructor() {
+  const [showdelete, setShowDelete] = useState(false);
+  const [deleteid, setdeleteid] = useState(null);
+
   const columns = [
-    { name: "First Name", sortable: true, selector: (row) => row.firstName },
+    {
+      name: "First Name",
+      sortable: true,
+      cell: (row) => {
+        console.log(row);
+        return (
+          <div>
+            <Link to={`/instructor/${row.id}`}>{row.firstName}</Link>
+          </div>
+        );
+      },
+
+      selector: (row) => row.firstName,
+    },
+
     { name: "Middle Name", sortable: true, selector: (row) => row.middleName },
     { name: "Last Name", sortable: true, selector: (row) => row.lastName },
-    { name: "Password", sortable: true, selector: (row) => row.password },
+    // { name: "Password", sortable: true, selector: (row) => row.password },
 
     {
       name: "Image",
@@ -27,18 +45,7 @@ function Instructor() {
       selector: (row) => row.image,
     },
 
-    { name: "Address", sortable: true, 
-    cell:(row)=>{
-      console.log(row);
-      return(
-        <div className="">
-          <Link to={`/instructor/${row.id}`}>{row.address}</Link>
-        </div>
-      )
-    },
-    
-    selector: (row) => row.address },
-    
+    { name: "Address", sortable: true, selector: (row) => row.address },
     { name: "Phone", sortable: true, selector: (row) => row.phone },
     { name: "Email", sortable: true, selector: (row) => row.email },
     {
@@ -58,7 +65,11 @@ function Instructor() {
 
           <button
             className=" "
-            onClick={() => handleDelete(row.id)}
+            onClick={() => {
+              setShowDelete(true);
+              setdeleteid(row.id);
+            }}
+            // onClick={() => handleDelete(row.id)}
             id={row.id}
           >
             <MdDelete />
@@ -100,7 +111,7 @@ function Instructor() {
 
   const handleDelete = (id) => {
     try {
-      axiosinstance.delete(`/instructor/${id}`);
+      axiosinstance.delete(`/instructor/${deleteid}`);
       getdata();
     } catch (error) {
       console.log(error);
@@ -125,7 +136,15 @@ function Instructor() {
   };
 
   return (
-    <div className="lg:ml-60">
+    <div className="lg:ml-52">
+      {showdelete && (
+        <Modal
+          handleDelete={() => handleDelete()}
+          setShowDelete={() => {
+            setShowDelete(false);
+          }}
+        />
+      )}
       <div className=" mt-24">
         <input
           type="text"
@@ -133,7 +152,6 @@ function Instructor() {
           autoComplete="off"
           value={query}
           className=" border-2 border-black rounded-xl sm:h-8 w-32   sm:w-56 pl-3 pr-3 "
-
           onChange={(e) => handlesearch(e)}
           placeholder="search here"
         />
@@ -154,7 +172,4 @@ function Instructor() {
 
 export default Instructor;
 
-//   <div className=" text-xl ">
-//     <button onClick={handleEdit}>{/* <MdOutlineEditNote /> */}</button>
-//     <button onClick={handleDelete}>{/* <RiDeleteBin5Fill /> */}</button>
-//   </div>
+

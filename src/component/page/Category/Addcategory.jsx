@@ -4,8 +4,13 @@ import toast, { Toaster } from "react-hot-toast";
 import { Navigation } from "@mui/icons-material";
 import axios from "../../../Hoc/Axios";
 import { IoCloudUploadSharp } from "react-icons/io5";
+import { Link } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
+
+
 import JoditEditor from "jodit-react";
 import * as Yup from "yup";
+import { IoIosArrowBack } from "react-icons/io";
 
 const schema = Yup.object().shape({
   name: Yup.string().required("This field is required"),
@@ -17,9 +22,12 @@ function Addcategory() {
   const inputRef = useRef(null);
   const [image, setImage] = useState("");
   const [redirect, setredirect] = useState(false);
-
+const[category, setCategoty]= useState("");
   const editor = useRef(null);
   const [content, setContent] = useState("");
+
+  const[loading,setLoading]= useState(false);
+
 
   const handleImageClick = () => {
     inputRef.current.click();
@@ -44,7 +52,7 @@ function Addcategory() {
   }, [redirect]);
 
   return (
-    <div className="mt-20 lg:ml-72">
+    <div className="mt-20 lg:ml-52">
       <Formik
         initialValues={{
           name: "",
@@ -52,6 +60,8 @@ function Addcategory() {
         }}
         validationSchema={schema}
         onSubmit={(values, { resetForm }) => {
+          setLoading(true); //set loading to true before API call
+
           try {
             const formData = new FormData();
             formData.append("name", values.name);
@@ -60,35 +70,54 @@ function Addcategory() {
               .post("/category/", formData)
               .then((res) => {
                 console.log(res);
-                toast.success("Login Successful");
+                toast.success("post Successful");
                 setredirect((prev) => !prev);
-                localStorage.setItem("token", res.data.accesstoken);
-                Navigate("/");
-                // setcourse([...res.data.data]);
+                resetForm();
+                setCategoty([...res.data.data]);
+                setLoading(false); //set loading to false before API call
+
               })
               .catch((error) => {
                 console.log(error);
                 toast.error(error.response.data.message);
+                setLoading(false); //set loading to false before API call
+
               });
           } catch (error) {
             console.log(error);
+            setLoading(false); //set loading to false before API call
+
           }
 
           console.log(values);
-          resetForm();
         }}
       >
         {({ handleSubmit, setFieldValue, values }) => {
           return (
-            <Form onSubmit={handleSubmit}>
+            <Form
+             onSubmit={handleSubmit}>
               <Toaster />
-              
+
+ 
+              {loading && (
+                <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50">
+                  <ClipLoader size={50} color={"#123abc"} loading={loading} />
+                </div>
+              )}
+
               <div className="">
+                <div className="flex justify-between">
+                  <div className="text-2xl font-bold  text-purple-700 lg:mb-6 mb-3 font">
+                    Category
+                  </div>
+                  <Link to={"/Category"}>
+                    <div className="h-10 w-10 bg-gray-300 rounded-3xl text-3xl text-purple-700 px-1 py-1 ">
+                      <IoIosArrowBack />
+                    </div>
+                  </Link>
+                </div>
 
-              <div className="text-2xl font-bold  text-purple-700 lg:mb-6 mb-3 font">Category</div>
-
-                
-                <div className="lg:w-11/12 ">
+                <div className="w-full ">
                   <div className=" font-medium text-purple-700 mb-2 mt-6">
                     Name
                   </div>
@@ -110,7 +139,7 @@ function Addcategory() {
                   </div>
                 </div>
 
-                <div className=" ">
+                <div>
                   <div className="mt-7 ">
                     <div className="font-medium text-purple-700 mb-2">
                       Upload Image
@@ -134,6 +163,7 @@ function Addcategory() {
                       <input
                         name="image"
                         type="file"
+                        accept="image/*"
                         ref={inputRef}
                         onChange={(e) => {
                           setFieldValue("image", e.target.files[0]);

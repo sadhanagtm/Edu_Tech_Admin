@@ -1,123 +1,109 @@
-
-import React, { useEffect, useRef, useState } from 'react'
-import { IoIosNotifications } from "react-icons/io";
- import { IoMdMail } from "react-icons/io";
- import { IoMenuOutline } from "react-icons/io5";
-
-import { CgProfile } from "react-icons/cg";
-import { FaRegEdit } from "react-icons/fa";
-import { FiSettings,FiHelpCircle,FiLogOut   } from "react-icons/fi";
-import { MdOutlineForwardToInbox } from "react-icons/md";
-import Sidebar from './Sidebar';
+import React, { useRef, useState } from "react";
+import {
+  IoMailUnreadSharp,
+  IoMenu,
+  IoNotifications,
+  IoSearchOutline,
+} from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
+import Sidebar from "./Sidebar";
+import { FaAngleDown, FaAngleUp, FaSearch } from "react-icons/fa";
 
-function Toolbar  ()  {
-  
- 
-  const[open,setOpen] = useState(false);
-  const divRef=useRef();
-  const imgRef=useRef();
+import Profile from "./Profile/Profile";
+import ShowProfile from "./Profile/ShowProfile";
+import { IoIosNotifications, IoMdMail } from "react-icons/io";
+
+function Toolbar() {
   const [isShow, setIsShow] = useState(false);
-  const toggleMenu = () =>{
+  const toggleMenu = () => {
     setIsShow(!isShow);
   };
 
-  
-  window.addEventListener('click',(e)=>{
-    if(e.target !== divRef.current && e.target !== imgRef.current){
-      setOpen(false)
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleButton = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const [Course, setcourse] = useState([]);
+  const [query, setQuery] = useState("");
+
+  const handlesearch = (event) => {
+    const getSearch = event.target.value;
+    setQuery(getSearch);
+    if (getSearch.length > 0) {
+      const searchdata = Course.filter((item) =>
+        item.name.toLowerCase().includes(getSearch)
+      );
+      setcourse(searchdata);
+    } else {
+      setcourse(filter);
     }
-  });
 
-
+    setQuery(getSearch);
+  };
 
   return (
-    <div className='flex '>
-    <div className="flex h-14  bg-primary justify-between fixed w-full z-20">
-        <img src={"/src/image/Lopho.png"} alt="image" className=" flex w-40 ml-7 h-12" />
+    <div>
+      <div className=" bg-primary lg:h-14 h-16  py-3 w-full fixed z-20 ">
+        <div className="flex justify-between items-center   ">
+          <img
+            src={"/src/image/Lopho.png"}
+            alt="image"
+            className=" z-20  aspect-square lg:h-14 h-10 mx-4 w-40 lg:-mt-4 mb-5"
+          />
 
+          <div className=" flex">
+            <button
+              onClick={toggleMenu}
+              className=" mb-5  text-4xl px-2 lg:hidden "
+            >
+              {isShow ? (
+                <RxCross2 className="text-white  animate-pulse hover:bg-zinc-300 hover:text-black hover:rounded-xl" />
+              ) : (
+                <IoMenu className="text-white hover:bg-zinc-300 hover:text-black hover:rounded-xl" />
+              )}
+            </button>
+            {isShow && <Sidebar onClose={() => setIsShow(false)} />}
 
-      <button onClick={toggleMenu} className=' lg:hidden px-6'>
-        {
-          isShow?(
-            <RxCross2 className=' text-white h-11 w-11 animate-pulse hover:bg-zinc-300 hover:text-black hover:rounded-xl'/>
-          ):(
-            
-            <IoMenuOutline className=' text-white h-11 w-11 hover:bg-zinc-300 hover:text-black hover:rounded-xl ' />
-          )
-        }
-         </button>
+            <div className="   lg:flex text-center justify-end items-center  gap-5 mx-3 mb-7">
+              <div className=" lg:flex hidden lg:gap-2">
+                <div>
+                  <input
+                    type="text"
+                    name="name"
+                    autoComplete="off"
+                    value={query}
+                    onChange={(e) => handlesearch(e)}
+                    className=" border-2 border-black rounded-xl sm:h-8 w-32  sm:w-56 pl-3 pr-3 outline-none "
+                    placeholder="search here"
+                  />
+                </div>
 
-         {isShow && <Sidebar onClose={() => setIsShow(false)}/>}
-   
-      <div className="cursor-pointer text-2xl lg:flex gap-5 mr-10 mt-3 text-gray-300 hidden ">
-        <div className='flex mt-1 gap-3 '>
+                <IoIosNotifications className=" text-white h-7 w-7" />
+                <IoMdMail className=" text-white h-7 w-7" />
+              </div>
 
-         <IoIosNotifications />
-         <IoMdMail />
+              <div className="flex flex-row relative  lg:left-0 top-1 right-2 lg:right-0 lg:bottom-0 -mt-2">
+                <Profile top={true} />
+
+                <button
+                  onClick={toggleButton}
+                  className="pt-6 relative lg:right-8 right-1   "
+                >
+                  {isOpen ? (
+                    <FaAngleUp className="text-xl text-white " />
+                  ) : (
+                    <FaAngleDown className="text-xl text-white " />
+                  )}
+                </button>
+                {isOpen && <ShowProfile onClose={() => setIsOpen(false)} />}
+              </div>
+            </div>
+          </div>
         </div>
-         <div className='h-8 w-8 ' onClick={()=>{setOpen(!open)}} >
-            <img src='https://www.shareicon.net/data/128x128/2017/01/06/868320_people_512x512.png' ref={imgRef}/>
-         </div>
-         </div>
-   
-
-
+      </div>
     </div>
-   
-  
-
-
-
-
-  
-   {
-       open && 
-      
-      <div ref={divRef} className='h-100 w-60 bg-gray-200 float-end mx-5 absolute z-10 right-0 mt-6'>
-                   <div className=' text-black'>
-                      <div className=' text-center my-9'>
-                      <div className=' text-xl  font-semibold '>Laxmi Dhakal </div>
-                      <div className='text-xs'>someone123@gmail.com</div>
-                      </div>
-   
-   
-                       <div  onClick={()=>setOpen(false)} className='mx-14 grid gap-6 cursor-pointer '>
-                     <div className='flex gap-6 '><CgProfile className='text-2xl ' />My Profile</div>
-                     <div className='flex gap-6'><FaRegEdit  className='text-2xl'/>Edit Profile</div>
-                     <div className='flex gap-6'><MdOutlineForwardToInbox className='text-2xl' />Inbox</div>
-                     <div className='flex gap-6'><FiSettings className='text-2xl' />Settings</div>
-                     <div className='flex gap-6'><FiHelpCircle  className='text-2xl'/>Helps</div>
-                     <div className='flex gap-6'><FiLogOut  className='text-2xl'/>Logout</div> 
-                      </div> 
-                        </div>
-                 </div>
-    }
-
-</div>
-   
   );
-};
+}
 
 export default Toolbar;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

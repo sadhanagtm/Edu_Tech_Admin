@@ -5,13 +5,19 @@ import { Navigation } from "@mui/icons-material";
 import axios from "../../../Hoc/Axios";
 import { IoCloudUploadSharp } from "react-icons/io5";
 import JoditEditor from "jodit-react";
+import { Link } from "react-router-dom";
+import { IoIosArrowBack } from "react-icons/io";
+import { BsEyeSlashFill } from "react-icons/bs";
+import { IoEyeOutline } from "react-icons/io5";
+import { ClipLoader } from "react-spinners";
+
 
 import * as Yup from "yup";
 
 const schema = Yup.object().shape({
   firstName: Yup.string().required("This field is required"),
   lastName: Yup.string().required("This field is required"),
-  middleName: Yup.string().required("This field is required"),
+  // middleName: Yup.string().required("This field is required"),
   password: Yup.string().required("This field is required"),
   email: Yup.string().required("This field is required"),
   phone: Yup.string().required("This field is required"),
@@ -27,7 +33,7 @@ function Addinstructor() {
     { name: "phone", type: "number", label: "Phone" },
     { name: "address", type: "text", label: "Address" },
     { name: "email", type: "email", label: "Email" },
-    { name: "password", type: "password", label: "Password" },
+    // { name: "password", type: "password", label: "Password" },
   ];
 
   const [value, setFieldValue] = useState("");
@@ -35,9 +41,15 @@ function Addinstructor() {
   const [image, setImage] = useState("");
   const [redirect, setredirect] = useState(false);
   const [placeholder, setplaceholder] = useState("enter description...");
-
+  const [instructor, setInstructor] = useState("");
   const editor = useRef(null);
   const [content, setContent] = useState("");
+
+  const [loading, setLoading] = useState(false);
+
+
+  const [password, setPassword] = useState("");
+  const [visible, setVisible] = useState(false);
 
   const handleImageClick = () => {
     inputRef.current.click();
@@ -62,7 +74,7 @@ function Addinstructor() {
   }, [redirect]);
 
   return (
-    <div className="mt-20 ml-7">
+    <div className="mt-20 ">
       <Formik
         initialValues={{
           firstName: "",
@@ -76,46 +88,68 @@ function Addinstructor() {
         }}
         validationSchema={schema}
         onSubmit={(values, { resetForm }) => {
+          setLoading(true); //set loading to true before API call
+
           try {
             const formData = new FormData();
             formData.append("firstName", values.firstName);
-            formData.append("lastName", values.lastName);
             formData.append("middleName", values.middleName);
-            formData.append("password", values.password);
+            formData.append("lastName", values.lastName);
             formData.append("email", values.email);
+            formData.append("password", values.password);
             formData.append("phone", values.phone);
             formData.append("image", values.image);
             formData.append("address", values.address);
 
             axios
-              .post("/instructor/", formData)
+              .post("/user/auth/register/instructor/user", formData)
               .then((res) => {
-                console.log(res, "insdATA");
-                toast.success("Login Successful");
+                console.log(res);
+                toast.success("post Successful");
                 setredirect((prev) => !prev);
-                localStorage.setItem("token", res.data.accesstoken);
-                Navigate("/");
-                // setcourse([...res.data.data]);
+                setInstructor([...res.data.data]);
+                resetForm();
+                setLoading(false); //set loading to false before API call
+
               })
               .catch((error) => {
                 console.log(error);
                 toast.error(error.response.data.message);
+                setLoading(false); //set loading to false before API call
+
               });
           } catch (error) {
             console.log(error);
+            setLoading(false); //set loading to false before API call
+
           }
 
           console.log(values);
-          resetForm();
         }}
       >
         {({ handleSubmit, setFieldValue, values }) => {
           return (
             <Form onSubmit={handleSubmit}>
               <Toaster />
-              <div className="lg:ml-52 -ml-8">
-              <div className="text-2xl font-bold  text-purple-700 lg:mb-6 mb-3 font">Instructor</div>
-                 
+
+              {loading && (
+                  <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50">
+                    <ClipLoader size={50} color={"#123abc"} loading={loading} />
+                  </div>
+                )} 
+
+              <div className="lg:ml-52 ">
+                <div className=" flex justify-between">
+                  <div className="text-2xl font-bold  text-purple-700 lg:mb-6 mb-3 font">
+                    Instructor
+                  </div>
+                  <Link to={"/Instructor"}>
+                    <div className="h-10 w-10 bg-gray-300 rounded-3xl text-3xl text-purple-700 px-1 py-1 ">
+                      <IoIosArrowBack />
+                    </div>
+                  </Link>
+                </div>
+
                 <div className=" grid lg:grid-cols-3 sm:grid-cols-2 lg:gap-8 gap-4 sm:gap-8">
                   {data.map((val, i) => {
                     return (
@@ -147,6 +181,42 @@ function Addinstructor() {
                   })}
                 </div>
 
+                <div className="  mt-9 sm:grid-cols-3 grid gap-5">
+                  <div>
+                    <div className="text-lg font-medium text-purple-700 mb-2">
+                      {" "}
+                      Password
+                    </div>
+
+                    <div className="flex   border-2 gap-2 items-cente px-1 -ml-1 ">
+                      <input
+                        name="password"
+                        id="password"
+                        type={visible ? "text" : "password"}
+                        autoComplete="off"
+                        placeholder="Password"
+                        className="h-10 w-full bg-transparent outline-none pr-2"
+                        onChange={(e) => {
+                          setFieldValue("password", e.target.value);
+                        }}
+                      />
+                      <button
+                        onClick={() => setVisible(!visible)}
+                        className=" relative right-2 pt-1  "
+                      >
+                        {visible ? <IoEyeOutline /> : <BsEyeSlashFill />}
+                      </button>
+                    </div>
+                    <ErrorMessage
+                      name="password"
+                      component={"div"}
+                      className="text-red-500 text-start "
+                    />
+                  </div>
+
+                
+                </div>
+
                 <div className=" col-span-2 mt-10 grid grid-cols-1 justify-between">
                   <div className="text-left mt-0">
                     <div className="text-lg font-medium text-purple-700 mb-2">
@@ -171,6 +241,7 @@ function Addinstructor() {
                       <input
                         name="image"
                         type="file"
+                        accept="image/*"
                         ref={inputRef}
                         onChange={(e) => {
                           setFieldValue("image", e.target.files[0]);

@@ -8,14 +8,21 @@ import { Link } from "react-router-dom";
 
 function TermsTable () {
   const columns = [
-    { name: "name", sortable: true, selector: (row) => row.name },
-    { name: "Description", sortable: true, selector: (row) => row.description },
- 
+    { name: "Privacy Policy", sortable: true, selector: (row) => row.privacyPolicy },
+    { name: "Pricing Policy", sortable: true, selector: (row) => row.pricingPolicy },
+    { name: "Instructor Terms", sortable: true, selector: (row) => row.instructorTerms },
+    { name: "Terms OfUse", sortable: true, selector: (row) => row.termsOfUse },
+    { name: "Launch Services", sortable: true, selector: (row) => row.launchServices },
+    { name: "Affiliate Terms Conditions", sortable: true, selector: (row) => row.affiliateTermsConditions },
+    { name: "Business Terms Conditions", sortable: true, selector: (row) => row.businessTermConditions },
+    { name: "Business Privacy Statement", sortable: true, selector: (row) => row.businessPrivacyStatement },
+    { name: "Master Service Agreement", sortable: true, selector: (row) => row.masterServicesAgreement },
+    
     {
       name: "Action",
       cell: (row) => (
         <div className="gap-4 flex items-center justify-center text-xl ">
-          <Link to={"/edit"} state={{
+          <Link to={"/editterms"} state={{
             id:row.id
           }}>
             <button className="  " id={row.id}>
@@ -42,16 +49,16 @@ function TermsTable () {
 
   const getdata = (id) => {
     try {
-      // axios
-      //   .get(`/testimonial`)
-      //   .then((res) => {
-      //     console.log(res);
-      //     setTerms([...res.data.result]);
-      //     setFilter([...res.data.result]);
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
+      axios
+        .get(`/terms`)
+        .then((res) => {
+          console.log(res);
+          setTerms([...res.data.result]);
+          setFilter([...res.data.result]);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     } catch (error) {
       console.log(error);
     }
@@ -67,7 +74,7 @@ function TermsTable () {
 
   const handleDelete = (id) => {
     try {
-      axios.delete(`/testimonial/${id}`);
+      axios.delete(`/terms/${id}`);
       getdata();
     } catch (error) {
       console.log(error);
@@ -92,7 +99,7 @@ function TermsTable () {
   };
 
   return (
-    <div className="lg:ml-60">
+    <div className="lg:ml-52">
       <div className=" mt-24">
       <input
           type="text"

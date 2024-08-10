@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { MdOutlineEditNote } from "react-icons/md";
-
 import { RiDashboardFill } from "react-icons/ri";
 import { FaBook } from "react-icons/fa";
 import { MdCategory } from "react-icons/md";
@@ -9,137 +8,127 @@ import { FaChalkboardTeacher } from "react-icons/fa";
 import { FaUniversity } from "react-icons/fa";
 import { PiStudent } from "react-icons/pi";
 import { FaRegRegistered } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
-import { Scrollbar } from "react-scrollbars-custom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import JoditEditor from "jodit-react";
+import { TbTransfer } from "react-icons/tb";
+import { RxCross2 } from "react-icons/rx";
+import { IoDocumentAttach } from "react-icons/io5";
+import { GrDocument } from "react-icons/gr";
+import Profile from "./Profile/Profile";
+import { BiSolidCategory } from "react-icons/bi";
 
 
-function Sidebar({onClose}) {
+function Sidebar({ onClose }) {
   const divRef = useRef();
 
-  const closeSidebar= (e) =>{
-    if(divRef.current===e.target){
+  const location = useLocation();
+
+  const closeSidebar = (e) => {
+    if (divRef.current === e.target) {
       onClose();
     }
-  }
-  const Navigate= useNavigate();
-  const [name, setName] = useState("Laxmi Dhakal ");
+  };
+  const Navigate = useNavigate();
 
-  const handleEdit = () => {
-    const newName = prompt("Enter the new name:", name);
-    if (newName !== null && newName !== "") {
-      setName(newName);
-    }
-  };
-  const handleDelete = () => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this name?"
-    );
-    if (confirmDelete) {
-      setName("");
-    }
-  };
+  const navlink = [
+    {
+      title: "Dashboard",
+      icon: <RiDashboardFill />,
+      path: "/Dashboard",
+    },
+
+    {
+      title: "Hero Section",
+      icon: <RiDashboardFill />,
+      path: "/herosection",
+    },
+
+    {
+      title: "Courses",
+      icon: <FaBook />,
+      path: "/Courses ",
+    },
+
+    {
+      title: "Category",
+      icon: <BiSolidCategory />,
+      path: "/Category",
+    },
+
+    {
+      title: "Students",
+      icon: <PiStudent />,
+      path: "/Student",
+    },
+
+    {
+      title: "Instructor",
+      icon: <FaChalkboardTeacher />,
+      path: "/Instructor",
+    },
+    {
+      title: "Testimonial",
+      icon: <GrDocument />,
+      path: "/testimonials ",
+    },
+
+    {
+      title: " Team Member",
+      icon: <GrDocument />,
+      path: "/Teammember ",
+    },
+
+    {
+      title: " Footer",
+      icon: <GrDocument />,
+      path: "/footer ",
+    },
+
+    {
+      title: "Vision",
+      icon: <BiSolidCategory />,
+      path: "/vision",
+    },
+
+    {
+      title: "Terms Of Use",
+      icon: <BiSolidCategory />,
+      path: "/terms",
+    },
+  ];
 
   return (
-    <div ref={divRef} onClick={closeSidebar} className="w-full fixed">
-
-    <div className="h-full w-60  bg-primary fixed  scroll-container  lg:mt-7 mt-14 ">
-      <div className="fixed ">
-      {/* <div className=" flex justify-center">
-        <img src={"/src/image/Lopho.png"} alt="image" className=" flex w-40" />
-      </div> */}
-
-      <div className="flex justify-evenly  lg:mt-12 bg-teal-800 h-12 w-44 rounded-lg ml-7 mt-8">
-        <img
-          src="https://www.shareicon.net/data/128x128/2017/01/06/868320_people_512x512.png"
-          className="h-8 w-8 mt-2 "
-        />
-        <div>
-          <div className="text-white font-semibold text-center    ">
-            <p> {name}</p>
-          </div>
-          <div className="text-white text-sm  w-12    ">Admin</div>
+    <div
+      ref={divRef}
+      onClick={closeSidebar}
+      className="w-full fixed left-0 z-10"
+    >
+      <div className=" h-full w-52 bg-primary fixed flex flex-col gap-5  top-0 z-10 mx-auto  ">
+        <div
+          onClick={onClose}
+          className=" text-white font-semibold grid w-10/12 mt-20 mx-auto gap-3 text-sm   "
+        >
+          {navlink.map((val, i) => {
+            console.log(location.pathname == val.path);
+            return (
+              <Link key={i} to={val.path}>
+                <div
+                  className={`flex gap-3  p-2 items-center ${
+                    location.pathname == val.path
+                      ? "bg-teal-800"
+                      : "bg-transparent"
+                  }  app:hover cursor-pointer  
+       rounded-lg hover:bg-teal-800`}
+                >
+                  <div>{val.icon}</div>
+                  <div>{val.title}</div>
+                </div>
+              </Link>
+            );
+          })}
         </div>
-
-        {/* <button className='text-white text-3xl ' onClick={handleEdit}><MdOutlineEditNote /></button>
-      <button  className="text-red-400 text-2xl " onClick={handleDelete}><RiDeleteBin5Fill /></button> */}
       </div>
-
-
-      </div>
-
-
-
-  <div className="content">
-
-      <div 
-      onClick={onClose}
-       className=" text-white font-semibold grid gap-5 mt-28 ml-4   ">
-        <Link to={"/Dashboard"}>
-          <div className="flex gap-3 ml-1  app:hover cursor-pointer w-48  h-10 rounded-lg pt-2 hover:bg-teal-800">
-            <RiDashboardFill className="mt-1 ml-4" />
-            Dashboard
-          </div>
-        </Link>
-
-        <Link to={"/herosection"}>
-          <div className="flex gap-3 ml-1  app:hover cursor-pointer w-48  h-10 rounded-lg pt-2 hover:bg-teal-800">
-            <FaRegRegistered className="mt-1 ml-4" />
-            Hero Section
-          </div>
-        </Link>
-
-        <Link to={"/Courses"}>
-          <div className="flex gap-3 ml-1  app:hover cursor-pointer w-48  h-10 rounded-lg pt-2 hover:bg-teal-800">
-            <FaBook className="mt-1 ml-4" />
-            Courses
-          </div>
-        </Link>
-
-        <Link to={"/Category"}>
-          <div className="flex gap-3 ml-1  app:hover cursor-pointer w-48  h-10 rounded-lg pt-2 hover:bg-teal-800">
-            <MdCategory className="mt-1 ml-4" />
-            Category
-          </div>
-        </Link>
-
-        <Link to={"/Student"}>
-          <div className="flex gap-3 ml-1  app:hover cursor-pointer w-48  h-10 rounded-lg pt-2 hover:bg-teal-800">
-            <PiStudent className="mt-1 ml-4" />
-            Students
-          </div>
-        </Link>
-
-        <Link to={"/Instructor"}>
-          <div className="flex gap-3 ml-1  app:hover cursor-pointer w-48  h-10 rounded-lg pt-2 hover:bg-teal-800">
-            <FaChalkboardTeacher className="mt-1 ml-4" />
-            Instructor
-          </div>
-        </Link>
-
-        <Link to={"/testimonials"}>
-          <div className="flex gap-3 ml-1  app:hover cursor-pointer w-48  h-10 rounded-lg pt-2 hover:bg-teal-800">
-            <RiDashboardFill className="mt-1 ml-4" />
-            Testimonials
-          </div>
-        </Link>
-
-        <Link to={"/Teammember"}>
-          <div className="flex gap-3 ml-1  app:hover cursor-pointer w-48  h-10 rounded-lg pt-2 hover:bg-teal-800">
-            <FaUniversity className="mt-1 ml-4" />
-            Team Member
-          </div>
-        </Link>
-
-      </div>
-
-  </div>
-
-
-
-    </div>
-
     </div>
   );
 }
-
 export default Sidebar;

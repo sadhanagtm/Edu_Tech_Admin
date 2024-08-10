@@ -1,13 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Table from "../../page component/Table";
 import axios from "../../../Hoc/Axios";
 import { MdDelete } from "react-icons/md";
 import { MdModeEdit } from "react-icons/md";
-import { Link } from "react-router-dom";
-
-
+import { Link, useNavigate } from "react-router-dom";
+import { Delete } from "react-axios";
+import Modal from "../../../Delete/Modal";
+import { GrFormPreviousLink } from "react-icons/gr";
+import { GrFormNextLink } from "react-icons/gr";
 
 function Courses() {
+  const [showdelete, setShowDelete] = useState(false);
+  const [deleteid, setdeleteid] = useState(null);
+
   const columns = [
     {
       name: "Name",
@@ -52,9 +57,12 @@ function Courses() {
       name: "Action",
       cell: (row) => (
         <div className="gap-4 flex items-center justify-center text-xl ">
-          <Link to={"/edit"} state={{
-            id:row.id
-          }}>
+          <Link
+            to={"/edit"}
+            state={{
+              id: row.id,
+            }}
+          >
             <button className="  " id={row.id}>
               <MdModeEdit />
             </button>
@@ -62,7 +70,11 @@ function Courses() {
 
           <button
             className=" "
-            onClick={() => handleDelete(row.id)}
+            onClick={() => {
+              setShowDelete(true);
+              setdeleteid(row.id);
+            }}
+            // onClick={() => handleDelete(row.id)}
             id={row.id}
           >
             <MdDelete />
@@ -104,7 +116,7 @@ function Courses() {
 
   const handleDelete = (id) => {
     try {
-      axios.delete(`/course/${id}`);
+      axios.delete(`/course/${deleteid}`);
       getdata();
     } catch (error) {
       console.log(error);
@@ -129,9 +141,17 @@ function Courses() {
   };
 
   return (
-    <div className="lg:ml-60  ">
-      <div className=" mt-24 ">
+    <div className="lg:ml-52  ">
+      {showdelete && (
+        <Modal
+          handleDelete={() => handleDelete()}
+          setShowDelete={() => {
+            setShowDelete(false);
+          }}
+        />
+      )}
 
+      <div className=" mt-24 ">
         <input
           type="text"
           name="name"
@@ -152,13 +172,6 @@ function Courses() {
       </Link>
 
       {Course && <Table data={Course} columns={columns} />}
-
-      
-      {/* <div className=" text-xl ">
-        <button onClick={handleEdit}></button>
-
-        <button onClick={handleDelete(Course._id)}></button>
-      </div> */}
     </div>
   );
 }
